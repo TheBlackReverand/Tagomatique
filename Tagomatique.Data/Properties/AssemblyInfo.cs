@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Tagomatique.Data")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("IRCEM")]
+[assembly: AssemblyCompany("The Black Reverand")]
 [assembly: AssemblyProduct("Tagomatique.Data")]
-[assembly: AssemblyCopyright("Copyright © IRCEM 2012")]
+[assembly: AssemblyCopyright("Copyright © The Black Reverand 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("Tagomatique")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("IRCEM")]
+[assembly: AssemblyCompany("The Black Reverand")]
 [assembly: AssemblyProduct("Tagomatique")]
-[assembly: AssemblyCopyright("Copyright © IRCEM 2012")]
+[assembly: AssemblyCopyright("Copyright © The Black Reverand 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
