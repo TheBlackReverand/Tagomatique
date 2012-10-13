@@ -27,7 +27,9 @@ namespace Tagomatique.Tools
 
             if (sameCounter == 0)
             {
-                return absoluteFilePath;
+                return (Path.HasExtension(absoluteFilePath) | absoluteFilePath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                           ? absoluteFilePath
+                           : absoluteFilePath + Path.DirectorySeparatorChar;
             }
 
             string newPath = String.Empty;
@@ -51,7 +53,9 @@ namespace Tagomatique.Tools
                 newPath += secondPathParts[i];
             }
 
-            return newPath;
+            return (Path.HasExtension(newPath) | newPath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                       ? newPath
+                       : newPath + Path.DirectorySeparatorChar;
         }
     }
 }
