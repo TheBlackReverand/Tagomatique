@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tagomatique.Data;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models
@@ -88,7 +87,7 @@ namespace Tagomatique.Models
             }
             else
             {
-                return new MediaViewModel()
+                return new MediaViewModel
                  {
                      ID_Media = Guid.Empty,
                      ID_Dossier = Guid.Empty,

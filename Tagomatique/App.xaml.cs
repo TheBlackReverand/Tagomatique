@@ -11,8 +11,6 @@ namespace Tagomatique
     {
         public App()
         {
-            Dossier dd = new Dossier();
-
             File.AppendAllText(@"C:\log.tago.txt", "App.Main()");
 
             INITIALISER_DOSSIER_MEDIA();

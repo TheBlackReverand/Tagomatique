@@ -51,7 +51,7 @@ namespace Tagomatique.Data
         }
         public override Dossier GetDossierByKey(Guid idDossier, Tagomatique context)
         {
-            return context.Dossiers.Where(d => d.ID_Dossier == idDossier).SingleOrDefault();
+            return context.Dossiers.SingleOrDefault(d => d.ID_Dossier == idDossier);
         }
 
         public override void AjouterDossier(string nom, string chemin)
@@ -102,7 +102,7 @@ namespace Tagomatique.Data
         }
         public override Media GetMediaByKey(Guid idMedia, Tagomatique context)
         {
-            return context.Medias.Where(m => m.ID_Media == idMedia).SingleOrDefault();
+            return context.Medias.SingleOrDefault(m => m.ID_Media == idMedia);
         }
 
         public override void AjouterMedia(string nom, string relativeURL, Guid idDossier)
@@ -155,7 +155,7 @@ namespace Tagomatique.Data
         }
         public override Libelle GetLibelleByKey(Guid idLibelle, Tagomatique context)
         {
-            return context.Libelles.Where(t => t.ID_Libelle == idLibelle).SingleOrDefault();
+            return context.Libelles.SingleOrDefault(t => t.ID_Libelle == idLibelle);
         }
 
         public override Libelle GetLibelleByText(string libelle)
@@ -167,7 +167,7 @@ namespace Tagomatique.Data
         }
         public override Libelle GetLibelleByText(string libelle, Tagomatique context)
         {
-            return context.Libelles.Where(t => t.LibelleTexte == libelle).SingleOrDefault();
+            return context.Libelles.SingleOrDefault(t => t.LibelleTexte == libelle);
         }
 
         public override void AjouterLibelle(string libelle)
@@ -217,7 +217,7 @@ namespace Tagomatique.Data
         }
         public override Tag GetTagByKey(Guid idMedia, Guid idLibelle, Tagomatique context)
         {
-            return context.Tags.Where(tom => tom.ID_Media == idMedia && tom.ID_Libelle == idLibelle).SingleOrDefault();
+            return context.Tags.SingleOrDefault(tom => tom.ID_Media == idMedia && tom.ID_Libelle == idLibelle);
         }
 
         public override List<Tag> GetTagOfMedia(Guid idMedia)
@@ -279,7 +279,7 @@ namespace Tagomatique.Data
         }
         public override Signet GetSignetByKey(Guid idMedia, Guid idLibelle, Tagomatique context)
         {
-            return context.Signets.Where(tom => tom.ID_Media == idMedia && tom.ID_Libelle == idLibelle).SingleOrDefault();
+            return context.Signets.SingleOrDefault(tom => tom.ID_Media == idMedia && tom.ID_Libelle == idLibelle);
         }
 
         public override List<Signet> GetSignetOfMedia(Guid idMedia)

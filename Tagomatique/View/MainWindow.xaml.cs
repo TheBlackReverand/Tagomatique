@@ -1,8 +1,4 @@
-﻿using Tagomatique.Models;
-using System;
-using System.Linq;
-
-namespace Tagomatique.View
+﻿namespace Tagomatique.View
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
