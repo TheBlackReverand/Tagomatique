@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tagomatique.Models.Abstract.AbstractLibelleViewModel" Collapsed="true">
+    <Position X="5.5" Y="5.5" Width="2" />
+    <InheritanceLine Type="Tagomatique.Models.Abstract.DataViewModelBase" FixedFromPoint="true">
+      <Path>
+        <Point X="4.25" Y="2.441" />
+        <Point X="4.25" Y="2.816" />
+        <Point X="6.5" Y="2.816" />
+        <Point X="6.5" Y="5.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Abstract\AbstractLibelleViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tagomatique.Models.Abstract.DataViewModelBase" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAADAAAAAIAAAAQAAAAAAAAEAAAAABAAEAAA=</HashCode>
+      <FileName>Abstract\DataViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tagomatique.Models.Abstract.ViewModelBase" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAJAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstract\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tagomatique.Models.DossierViewModel" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.75" />
+    <AssociationLine Name="Medias" Type="Tagomatique.Models.MediaViewModel" FixedFromPoint="true">
+      <Path>
+        <Point X="3" Y="3.941" />
+        <Point X="3" Y="4.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAUABAAACAAAAAAQAAACAAAAEAAgAACAAEAAQ=</HashCode>
+      <FileName>DossierViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Medias" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tagomatique.Models.MediaViewModel" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.75" />
+    <AssociationLine Name="Dossier" Type="Tagomatique.Models.DossierViewModel" FixedToPoint="true">
+      <Path>
+        <Point X="4.312" Y="4.75" />
+        <Point X="4.312" Y="3.941" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Signets" Type="Tagomatique.Models.SignetViewModel">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.086" Y="1.641" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AgAAAAABUgAAAAAACAgAQAAAACACAEBgAgAACAAAAAA=</HashCode>
+      <FileName>MediaViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Dossier" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Signets" />
+      <Property Name="Tags" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tagomatique.Models.SignetViewModel" Collapsed="true">
+    <Position X="7.25" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAASAAAAAAAAAAAAABAAAACAAAAAgAACAAoAAA=</HashCode>
+      <FileName>SignetViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tagomatique.Models.TagViewModel" Collapsed="true">
+    <Position X="3.75" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAACAAgAAAACAAAAAgAACAAIAAA=</HashCode>
+      <FileName>TagViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

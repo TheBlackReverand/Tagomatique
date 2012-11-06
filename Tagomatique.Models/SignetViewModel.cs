@@ -2,71 +2,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using Tagomatique.Data;
+using Tagomatique.Models.Abstract;
+using Tagomatique.Resources.Enums;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models
 {
-    public class SignetViewModel : AbstractLibelleViewModel
-    {
-        #region Champs
+	public class SignetViewModel : DataViewModelBase
+	{
+		#region Champs
 
-        public Guid ID_Media;
+		public Guid ID_Signet { get; set; }
 
-        public TimeSpan Duree { get; set; }
+		public TimeSpan Duree { get; set; }
+		public string Libelle { get; set; }
 
-        #endregion Champs
+		public Guid FK_ID_Media { get; set; }
 
-        #region Constructeur
+		#endregion Champs
 
-        protected SignetViewModel() { }
+		#region DataBase
 
-        #endregion Constructeur
+		public static List<SignetViewModel> GetAll()
+		{
+			return TagomatiqueCache.GetAll(GetAllFromDB);
+		}
+		private static List<SignetViewModel> GetAllFromDB()
+		{
+			return AbstractDatabase.DataBase.GetAllSignet().Select(item => new SignetViewModel
+															  {
+																  ID_Signet = item.ID_Signet,
+																  Duree = TimeSpan.Parse(item.Duree),
+																  Libelle = item.Libelle,
+																  FK_ID_Media = item.FK_ID_Media,
+																  State = DataModelState.Unchanged
+															  }).ToList();
+		}
 
-        #region DataBase
+		public static SignetViewModel GetByKey(Guid idSignet)
+		{
+			return TagomatiqueCache.GetElement(s => s.ID_Signet == idSignet, GetAllFromDB);
+		}
+		public static List<SignetViewModel> GetByMediaKey(Guid idMedia)
+		{
+			return TagomatiqueCache.GetAll(GetAllFromDB).Where(s => s.FK_ID_Media == idMedia).ToList();
+		}
 
-        public static List<SignetViewModel> GetAll()
-        {
-            return TagomatiqueCache.GetAll(GetAllFromDB);
-        }
-        private static List<SignetViewModel> GetAllFromDB()
-        {
-            return DataBase.GetAllSignet().Select(item => new SignetViewModel
-            {
-                ID_Media = item.ID_Media,
-                ID_Libelle = item.ID_Libelle,
-                LibelleTexte = DataBase.GetLibelleByKey(item.ID_Libelle).LibelleTexte,
-                Duree = TimeSpan.Parse(item.Duree)
-            }).ToList();
-        }
+		#endregion
 
-        public static SignetViewModel GetByKey(Guid idMedia, Guid idLibelle)
-        {
-            return TagomatiqueCache.GetElement(t => t.ID_Media == idMedia && t.ID_Libelle == idLibelle, GetAllFromDB);
-        }
-        public static List<SignetViewModel> GetByMediaKey(Guid idMedia)
-        {
-            return TagomatiqueCache.GetAll(GetAllFromDB).Where(t => t.ID_Media == idMedia).ToList();
-        }
+		public override void insert()
+		{
+			ID_Signet = AbstractDatabase.DataBase.AjouterSignet(FK_ID_Media, Libelle, Duree.ToString("hh:mm:ss.ms"));
 
-        public static void AjouterSignet(Guid idMedia, string libelleTexte, TimeSpan duree)
-        {
-            Libelle libelle = GetLibelleByTexte(libelleTexte);
+			TagomatiqueCache.MarkAsDirty<SignetViewModel>();
+		}
+		public override void update()
+		{
+			throw new NotImplementedException("Modification des Signet interdit");
+		}
+		public override void delete()
+		{
+			AbstractDatabase.DataBase.SupprimerSignet(ID_Signet);
 
-            AjouterSignet(idMedia, libelle.ID_Libelle, duree);
-        }
-        public static void AjouterSignet(Guid idMedia, Guid idLibelle, TimeSpan duree)
-        {
-            DataBase.AjouterSignet(idMedia, idLibelle, duree);
-
-            TagomatiqueCache.MarkAsDirty<SignetViewModel>();
-        }
-        public static void SupprimerSignet(Guid idMedia, Guid idLibelle)
-        {
-            DataBase.SupprimerSignet(idMedia, idLibelle);
-
-            TagomatiqueCache.MarkAsDirty<SignetViewModel>();
-        }
-
-        #endregion
-    }
+			TagomatiqueCache.MarkAsDirty<SignetViewModel>();
+		}
+	}
 }

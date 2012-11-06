@@ -2,76 +2,93 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Tagomatique.Data;
+using Tagomatique.Models.Abstract;
+using Tagomatique.Resources.Enums;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models
 {
-    public class DossierViewModel : ViewModelBase
-    {
-        #region Champs
+	public class DossierViewModel : DataViewModelBase
+	{
+		#region Champs
 
-        public Guid ID_Dossier;
+		public Guid ID_Dossier { get; private set; }
 
-        public string Nom { get; set; }
-        public string Chemin { get; set; }
+		public string Nom { get; set; }
+		public string Chemin { get; set; }
 
-        #endregion Champs
+		#endregion Champs
 
-        #region Constructeur
+		#region Proprietes
 
-        private DossierViewModel() { }
+		public DirectoryInfo DirectoryInfo
+		{
+			get { return new DirectoryInfo(Chemin); }
+			set { Chemin = value.FullName; }
+		}
 
-        #endregion Constructeur
+		public List<MediaViewModel> Medias
+		{
+			get { return MediaViewModel.GetByDossierKey(ID_Dossier); }
+		}
 
-        #region Proprietes
+		#endregion Proprietes
 
-        public DirectoryInfo DirectoryInfo
-        {
-            get { return new DirectoryInfo(Chemin); }
-            set { Chemin = value.FullName; }
-        }
+		#region DataBase
 
-        public List<MediaViewModel> Medias
-        {
-            get { return MediaViewModel.GetByDossierKey(ID_Dossier); }
-        }
+		public static List<DossierViewModel> GetAll()
+		{
+			return TagomatiqueCache.GetAll(GetAllFromDB);
+		}
+		private static List<DossierViewModel> GetAllFromDB()
+		{
+			return AbstractDatabase.DataBase.GetAllDossier().Select(item => new DossierViewModel
+				                                                                {
+					                                                                ID_Dossier = item.ID_Dossier,
+					                                                                Nom = item.Nom,
+					                                                                Chemin = item.Chemin,
+					                                                                State = DataModelState.Unchanged
+				                                                                }).ToList();
+		}
 
-        #endregion Proprietes
+		public static DossierViewModel GetByKey(Guid idDossier)
+		{
+			return TagomatiqueCache.GetElement(d => d.ID_Dossier == idDossier, GetAllFromDB);
+		}
+		public static DossierViewModel GetByProperties(string nom, string chemin)
+		{
+			return TagomatiqueCache.GetElement(d => d.Nom == nom && d.Chemin == chemin, GetAllFromDB);
+		}
 
-        #region DataBase
+		#endregion
 
-        public static List<DossierViewModel> GetAll()
-        {
-            return TagomatiqueCache.GetAll(GetAllFromDB);
-        }
-        private static List<DossierViewModel> GetAllFromDB()
-        {
-            return DataBase.GetAllDossier().Select(item => new DossierViewModel
-                                                                   {
-                                                                       ID_Dossier = item.ID_Dossier,
-                                                                       Nom = item.Nom,
-                                                                       Chemin = item.Chemin
-                                                                   }).ToList();
-        }
+		public override void markedAsToRemove()
+		{
+			base.markedAsToRemove();
 
-        public static DossierViewModel GetByKey(Guid idDossier)
-        {
-            return TagomatiqueCache.GetElement(d => d.ID_Dossier == idDossier, GetAllFromDB, true);
-        }
+			List<MediaViewModel> lst = MediaViewModel.GetByDossierKey(ID_Dossier);
+			foreach (MediaViewModel mediaViewModel in lst)
+			{
+				mediaViewModel.markedAsToRemove();
+			}
+		}
 
-        public static void AjouterDossier(string nom, string chemin)
-        {
-            DataBase.AjouterDossier(nom, chemin);
+		public override void insert()
+		{
+			ID_Dossier = AbstractDatabase.DataBase.AjouterDossier(Nom, Chemin);
 
-            TagomatiqueCache.MarkAsDirty<DossierViewModel>();
-        }
-        public static void SupprimerDossier(Guid idDossier)
-        {
-            DataBase.SupprimerDossier(idDossier);
+			TagomatiqueCache.MarkAsDirty<DossierViewModel>();
+		}
+		public override void update()
+		{
+			AbstractDatabase.DataBase.ModifierDossier(ID_Dossier, Nom, Chemin);
+		}
+		public override void delete()
+		{
+			AbstractDatabase.DataBase.SupprimerDossier(ID_Dossier);
 
-            TagomatiqueCache.MarkAsDirty<DossierViewModel>();
-        }
-
-        #endregion
-    }
+			TagomatiqueCache.MarkAsDirty<DossierViewModel>();
+		}
+	}
 }

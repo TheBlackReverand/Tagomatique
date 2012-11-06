@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\DataModeType.cs" />
+    <Compile Include="Enums\DataModelState.cs" />
     <Compile Include="Erreurs.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

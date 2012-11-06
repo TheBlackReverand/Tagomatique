@@ -1,77 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tagomatique.Data.Objects;
+using Tagomatique.Resources;
+using Tagomatique.Resources.Enums;
 
 namespace Tagomatique.Data
 {
-    public abstract class AbstractDatabase
-    {
-        #region Infos
+	public abstract class AbstractDatabase
+	{
+		#region Singletoon
 
-        public abstract string GetVersion();
+		private static AbstractDatabase dataBase;
+		public static AbstractDatabase DataBase
+		{
+			get
+			{
+				if (dataBase == null)
+				{
+					switch (Parametres.DataMode)
+					{
+						case DataModeType.SQL:
+							dataBase = new SqlDatabase();
+							break;
 
-        #endregion Infos
+						case DataModeType.XML:
+							throw new NotSupportedException(Erreurs.DataModeNonSupporter);
+
+						default:
+							throw new NotSupportedException(Erreurs.DataModeNonSupporter);
+					}
+				}
+
+				return dataBase;
+			}
+		}
+
+		#endregion
 
 
-        #region Dossiers
+		#region Infos
 
-        public abstract List<Dossier> GetAllDossier();
-        public abstract Dossier GetDossierByKey(Guid idDossier);
-        public abstract Dossier GetDossierByKey(Guid idDossier, Tagomatique context);
+		public abstract Infos GetInfos();
+		public abstract string GetVersion();
 
-        public abstract void AjouterDossier(string nom, string chemin);
-        public abstract void SupprimerDossier(Guid idDossier);
-
-        #endregion Dosssiers
-
-        #region Medias
-
-        public abstract List<Media> GetAllMedia();
-        public abstract Media GetMediaByKey(Guid idMedia);
-        public abstract Media GetMediaByKey(Guid idMedia, Tagomatique context);
-
-        public abstract void AjouterMedia(string nom, string relativeURL, Guid idDossier);
-        public abstract void SupprimerMedia(Guid idMedia);
-
-        #endregion Medias
+		#endregion Infos
 
 
-        #region Libelles
+		#region Dossiers
 
-        public abstract List<Libelle> GetAllLibelle();
-        public abstract Libelle GetLibelleByKey(Guid idLibelle);
-        public abstract Libelle GetLibelleByKey(Guid idLibelle, Tagomatique context);
-        public abstract Libelle GetLibelleByText(string libelle);
-        public abstract Libelle GetLibelleByText(string libelle, Tagomatique context);
+		public abstract List<Dossier> GetAllDossier();
+		public abstract Dossier GetDossierByKey(Guid idDossier);
 
-        public abstract void AjouterLibelle(string libelle);
-        public abstract void SupprimerLibelle(Guid idLibelle);
+		public abstract Guid AjouterDossier(string nom, string chemin);
+		public abstract void ModifierDossier(Guid idDossier, string nom, string chemin);
+		public abstract void SupprimerDossier(Guid idDossier);
 
-        #endregion Libelles
+		#endregion Dosssiers
 
-        #region Tags
+		#region Medias
 
-        public abstract List<Tag> GetAllTag();
-        public abstract Tag GetTagByKey(Guid idMedia, Guid idLibelle);
-        public abstract Tag GetTagByKey(Guid idMedia, Guid idLibelle, Tagomatique context);
-        public abstract List<Tag> GetTagOfMedia(Guid idMedia);
-        public abstract List<Tag> GetTagOfMedia(Guid idMedia, Tagomatique context);
+		public abstract List<Media> GetAllMedia();
+		public abstract Media GetMediaByKey(Guid idMedia);
 
-        public abstract void AjouterTag(Guid idMedia, Guid idLibelle);
-        public abstract void SupprimerTag(Guid idMedia, Guid idLibelle);
+		public abstract Guid AjouterMedia(string nom, string relativeURL, Guid idDossier);
+		public abstract void ModifierMedia(Guid idMedia, string nom, string relativeURL, Guid idDossier);
+		public abstract void SupprimerMedia(Guid idMedia);
 
-        #endregion Tags
+		#endregion Medias
 
-        #region Signets
 
-        public abstract List<Signet> GetAllSignet();
-        public abstract Signet GetSignetByKey(Guid idMedia, Guid idLibelle);
-        public abstract Signet GetSignetByKey(Guid idMedia, Guid idLibelle, Tagomatique context);
-        public abstract List<Signet> GetSignetOfMedia(Guid idMedia);
-        public abstract List<Signet> GetSignetOfMedia(Guid idMedia, Tagomatique context);
+		#region Tags
 
-        public abstract void AjouterSignet(Guid idMedia, Guid idLibelle, TimeSpan duree);
-        public abstract void SupprimerSignet(Guid idMedia, Guid idLibelle);
+		public abstract List<Tag> GetAllTag();
+		public abstract Tag GetTagByKey(Guid idTag);
+		public abstract List<Tag> GetTagOfMedia(Guid idMedia);
+		public abstract List<Tag> GetTagOfChapitre(Guid idChapitre);
 
-        #endregion Signets
-    }
+		public abstract Guid AjouterTagForMedia(Guid idMedia, string libelleTexte);
+		public abstract Guid AjouterTagForChapitre(Guid idChapitre, string libelleTexte);
+		public abstract void SupprimerTag(Guid idTag);
+
+		#endregion Tags
+
+		#region Signets
+
+		public abstract List<Signet> GetAllSignet();
+		public abstract Signet GetSignetByKey(Guid idSignet);
+		public abstract List<Signet> GetSignetOfMedia(Guid idMedia);
+
+		public abstract Guid AjouterSignet(Guid idMedia, string libelleTexte, string duree);
+		public abstract void SupprimerSignet(Guid idSignet);
+
+		#endregion Signets
+	
+		#region Chapitres
+
+		public abstract List<Chapitre> GetAllChapitre();
+		public abstract Chapitre GetChapitreByKey(Guid idChapitre);
+		public abstract List<Chapitre> GetChapitreOfMedia(Guid idMedia);
+
+		public abstract Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin);
+		public abstract void SupprimerChapitre(Guid idChapitre);
+
+		#endregion Chapitres
+	}
 }

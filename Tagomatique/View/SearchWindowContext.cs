@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Tagomatique.Models;
+using Tagomatique.Models.Abstract;
 using Tagomatique.Resources;
 using Tagomatique.Tools;
 using System.IO;

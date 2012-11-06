@@ -2,68 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using Tagomatique.Data;
+using Tagomatique.Models.Abstract;
+using Tagomatique.Resources.Enums;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models
 {
-    public class TagViewModel : AbstractLibelleViewModel
-    {
-        #region Champs
+	public class TagViewModel : DataViewModelBase
+	{
+		#region Champs
 
-        public Guid ID_Media;
+		public Guid ID_Tag { get; set; }
 
-        #endregion Champs
+		public string Libelle { get; set; }
 
-        #region Constructeur
+		public Guid? FK_ID_Media { get; set; }
+		public Guid? FK_ID_Chapitre { get; set; }
 
-        protected TagViewModel() { }
+		#endregion Champs
 
-        #endregion Constructeur
+		#region DataBase
 
-        #region DataBase
+		public static List<TagViewModel> GetAll()
+		{
+			return TagomatiqueCache.GetAll(GetAllFromDB);
+		}
 
-        public static List<TagViewModel> GetAll()
-        {
-            return TagomatiqueCache.GetAll(GetAllFromDB);
-        }
-        private static List<TagViewModel> GetAllFromDB()
-        {
-            return DataBase.GetAllTag().Select(item => new TagViewModel
-            {
-                ID_Media = item.ID_Media,
-                ID_Libelle = item.ID_Libelle,
-                LibelleTexte = DataBase.GetLibelleByKey(item.ID_Libelle).LibelleTexte
-            }).ToList();
-        }
+		private static List<TagViewModel> GetAllFromDB()
+		{
+			return AbstractDatabase.DataBase.GetAllTag().Select(item => new TagViewModel
+														   {
+															   ID_Tag = item.ID_Tag,
+															   Libelle = item.Libelle,
+															   FK_ID_Media = item.FK_ID_Media,
+															   FK_ID_Chapitre = item.FK_ID_Chapitre,
+															   State = DataModelState.Unchanged
+														   }).ToList();
+		}
 
-        public static TagViewModel GetByKey(Guid idMedia, Guid idLibelle)
-        {
-            return TagomatiqueCache.GetElement(t => t.ID_Media == idMedia && t.ID_Libelle == idLibelle, GetAllFromDB);
-        }
-        public static List<TagViewModel> GetByMediaKey(Guid idMedia)
-        {
-            return TagomatiqueCache.GetAll(GetAllFromDB).Where(t => t.ID_Media == idMedia).ToList();
-        }
+		public static TagViewModel GetByKey(Guid idTag)
+		{
+			return TagomatiqueCache.GetElement(t => t.ID_Tag == idTag, GetAllFromDB);
+		}
 
-        public static void AjouterTag(Guid idMedia, string libelleTexte)
-        {
-            Libelle libelle = GetLibelleByTexte(libelleTexte);
+		public static List<TagViewModel> GetByMediaKey(Guid idMedia)
+		{
+			return TagomatiqueCache.GetAll(GetAllFromDB).Where(t => t.FK_ID_Media == idMedia).ToList();
+		}
+		public static List<TagViewModel> GetByChapitreKey(Guid idChapitre)
+		{
+			return TagomatiqueCache.GetAll(GetAllFromDB).Where(t => t.FK_ID_Chapitre == idChapitre).ToList();
+		}
 
-            AjouterTag(idMedia, libelle.ID_Libelle);
-        }
-        public static void AjouterTag(Guid idMedia, Guid idLibelle)
-        {
-            DataBase.AjouterTag(idMedia, idLibelle);
+		#endregion
 
-            TagomatiqueCache.MarkAsDirty<TagViewModel>();
-        }
-        public static void SupprimerTag(Guid idMedia, Guid idLibelle)
-        {
-            DataBase.SupprimerTag(idMedia, idLibelle);
+		public override void insert()
+		{
+			if (FK_ID_Media.HasValue && !FK_ID_Chapitre.HasValue)
+				ID_Tag = AbstractDatabase.DataBase.AjouterTagForMedia(FK_ID_Media.Value, Libelle);
+			else if (!FK_ID_Media.HasValue && FK_ID_Chapitre.HasValue)
+				ID_Tag = AbstractDatabase.DataBase.AjouterTagForChapitre(FK_ID_Chapitre.Value, Libelle);
+			else
+				throw new Exception("Tag non assigné");
 
-            TagomatiqueCache.MarkAsDirty<TagViewModel>();
-        }
+			TagomatiqueCache.MarkAsDirty<TagViewModel>();
+		}
 
-        #endregion
-    }
+		public override void update()
+		{
+			throw new NotImplementedException("Modification des Tag interdit");
+		}
+
+		public override void delete()
+		{
+			AbstractDatabase.DataBase.SupprimerTag(ID_Tag);
+
+			TagomatiqueCache.MarkAsDirty<TagViewModel>();
+		}
+	}
 }
