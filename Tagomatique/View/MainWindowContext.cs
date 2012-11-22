@@ -28,7 +28,7 @@ namespace Tagomatique.View
 
             // Chargement de la liste des GroupedTagViewModel depuis la liste des TagViewModel
             var result = from tag in TagViewModel.GetAll()
-                         group tag.LibelleTexte by tag.LibelleTexte
+                         group tag.Libelle by tag.Libelle
                              into grp
                              select new GroupedTagViewModel
                              {

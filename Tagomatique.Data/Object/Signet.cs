@@ -1,8 +1,9 @@
 ﻿using System;
+using Tagomatique.Data.Interface;
 
-namespace Tagomatique.Data.Objects
+namespace Tagomatique.Data.Object
 {
-	public class Signet
+	public class Signet : ISignet
 	{
 		public Guid ID_Signet { get; set; }
 

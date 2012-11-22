@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SQLCompactContextStoreContainer" CdmEntityContainer="SQLCompactContext">
+    <EntitySetMapping Name="Chapitre">
+      <EntityTypeMapping TypeName="Tagomatique.Data.Context.Chapitre">
+        <MappingFragment StoreEntitySet="Chapitres">
+          <ScalarProperty Name="ID_Chapitre" ColumnName="ID_Chapitre" />
+          <ScalarProperty Name="Debut" ColumnName="Debut" />
+          <ScalarProperty Name="Fin" ColumnName="Fin" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FK_ID_Media" ColumnName="FK_ID_Media" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dossier">
+      <EntityTypeMapping TypeName="Tagomatique.Data.Context.Dossier">
+        <MappingFragment StoreEntitySet="Dossiers">
+          <ScalarProperty Name="ID_Dossier" ColumnName="ID_Dossier" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Chemin" ColumnName="Chemin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Infos">
+      <EntityTypeMapping TypeName="Tagomatique.Data.Context.Infos">
+        <MappingFragment StoreEntitySet="Infos">
+          <ScalarProperty Name="Version" ColumnName="version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="Tagomatique.Data.Context.Media">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="ID_Media" ColumnName="ID_Media" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="RelativeURL" ColumnName="RelativeURL" />
+          <ScalarProperty Name="FK_ID_Dossier" ColumnName="FK_ID_Dossier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Signet">
+      <EntityTypeMapping TypeName="Tagomatique.Data.Context.Signet">
+        <MappingFragment StoreEntitySet="Signets">
+          <ScalarProperty Name="ID_Signet" ColumnName="ID_Signet" />
+          <ScalarProperty Name="Duree" ColumnName="Duree" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="FK_ID_Media" ColumnName="FK_ID_Media" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tag">
+      <EntityTypeMapping TypeName="Tagomatique.Data.Context.Tag">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="ID_Tag" ColumnName="ID_Tag" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="FK_ID_Media" ColumnName="FK_ID_Media" />
+          <ScalarProperty Name="FK_ID_Chapitre" ColumnName="FK_ID_Chapitre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

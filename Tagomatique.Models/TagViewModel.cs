@@ -56,7 +56,7 @@ namespace Tagomatique.Models
 
 		#endregion
 
-		public override void insert()
+		protected override void insert()
 		{
 			if (FK_ID_Media.HasValue && !FK_ID_Chapitre.HasValue)
 				ID_Tag = AbstractDatabase.DataBase.AjouterTagForMedia(FK_ID_Media.Value, Libelle);
@@ -68,12 +68,12 @@ namespace Tagomatique.Models
 			TagomatiqueCache.MarkAsDirty<TagViewModel>();
 		}
 
-		public override void update()
+		protected override void update()
 		{
 			throw new NotImplementedException("Modification des Tag interdit");
 		}
 
-		public override void delete()
+		protected override void delete()
 		{
 			AbstractDatabase.DataBase.SupprimerTag(ID_Tag);
 

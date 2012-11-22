@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Tagomatique.Data;
 using Tagomatique.Models.Abstract;
+using Tagomatique.Resources;
 using Tagomatique.Resources.Enums;
 using Tagomatique.Tools;
 
@@ -43,7 +45,12 @@ namespace Tagomatique.Models
 
 		public bool IsValid
 		{
-			get { return System.IO.File.Exists(RelativeURL); }
+			get
+			{
+				return File.Exists(RelativeURL) && (Parametres.ValidExtensionMusique.Contains(Path.GetExtension(RelativeURL))
+				                                    || Parametres.ValidExtensionPhoto.Contains(Path.GetExtension(RelativeURL))
+				                                    || Parametres.ValidExtensionVideo.Contains(Path.GetExtension(RelativeURL)));
+			}
 		}
 
 		#endregion Proprietes
@@ -83,17 +90,17 @@ namespace Tagomatique.Models
 
 		#endregion
 
-		public override void insert()
+		protected override void insert()
 		{
 			ID_Media = AbstractDatabase.DataBase.AjouterMedia(Nom, RelativeURL, FK_ID_Dossier);
 
 			TagomatiqueCache.MarkAsDirty<MediaViewModel>();
 		}
-		public override void update()
+		protected override void update()
 		{
 			AbstractDatabase.DataBase.ModifierMedia(ID_Media, Nom, RelativeURL, FK_ID_Dossier);
 		}
-		public override void delete()
+		protected override void delete()
 		{
 			AbstractDatabase.DataBase.SupprimerMedia(ID_Media);
 

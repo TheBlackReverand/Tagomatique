@@ -40,6 +40,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,26 +50,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractDatabase.cs" />
-    <Compile Include="Context\SQLCompactContext.designer.cs">
+    <Compile Include="Context\SQLCompactContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SQLCompactContext.dbml</DependentUpon>
+      <DependentUpon>SQLCompactContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Context\SQLCompactContextEntities.cs" />
+    <Compile Include="Interface\ITag.cs" />
     <Compile Include="Object\Chapitre.cs" />
     <Compile Include="Object\Dossier.cs" />
+    <Compile Include="Interface\IChapitre.cs" />
+    <Compile Include="Interface\IDossier.cs" />
+    <Compile Include="Interface\IMedia.cs" />
+    <Compile Include="Interface\IInfos.cs" />
     <Compile Include="Object\Infos.cs" />
+    <Compile Include="Interface\ISignet.cs" />
     <Compile Include="Object\Media.cs" />
     <Compile Include="Object\Signet.cs" />
     <Compile Include="Object\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDatabase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Context\SQLCompactContext.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>SQLCompactContext.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -80,9 +82,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Context\SQLCompactContext.dbml.layout">
-      <DependentUpon>SQLCompactContext.dbml</DependentUpon>
-    </None>
+    <EntityDeploy Include="Context\SQLCompactContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SQLCompactContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

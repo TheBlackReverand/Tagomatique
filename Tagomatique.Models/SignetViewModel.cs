@@ -50,17 +50,17 @@ namespace Tagomatique.Models
 
 		#endregion
 
-		public override void insert()
+		protected override void insert()
 		{
 			ID_Signet = AbstractDatabase.DataBase.AjouterSignet(FK_ID_Media, Libelle, Duree.ToString("hh:mm:ss.ms"));
 
 			TagomatiqueCache.MarkAsDirty<SignetViewModel>();
 		}
-		public override void update()
+		protected override void update()
 		{
 			throw new NotImplementedException("Modification des Signet interdit");
 		}
-		public override void delete()
+		protected override void delete()
 		{
 			AbstractDatabase.DataBase.SupprimerSignet(ID_Signet);
 

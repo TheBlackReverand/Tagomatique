@@ -1,8 +1,9 @@
 ﻿using System;
+using Tagomatique.Data.Interface;
 
-namespace Tagomatique.Data.Objects
+namespace Tagomatique.Data.Object
 {
-	public class Dossier
+	public class Dossier : IDossier
 	{
 		public Guid ID_Dossier { get; set; }
 
