@@ -185,7 +185,7 @@
     </ItemGroup>
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>DEL /F /Q $(TargetDir)*.pdb
-DEL /F /Q $(TargetDir)*.dll</PostBuildEvent>
+    <PostBuildEvent>DEL /F /Q "$(TargetDir)*.pdb"
+DEL /F /Q "$(TargetDir)*.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

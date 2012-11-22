@@ -74,17 +74,17 @@ namespace Tagomatique.Models
 			}
 		}
 
-		public override void insert()
+		protected override void insert()
 		{
 			ID_Dossier = AbstractDatabase.DataBase.AjouterDossier(Nom, Chemin);
 
 			TagomatiqueCache.MarkAsDirty<DossierViewModel>();
 		}
-		public override void update()
+		protected override void update()
 		{
 			AbstractDatabase.DataBase.ModifierDossier(ID_Dossier, Nom, Chemin);
 		}
-		public override void delete()
+		protected override void delete()
 		{
 			AbstractDatabase.DataBase.SupprimerDossier(ID_Dossier);
 

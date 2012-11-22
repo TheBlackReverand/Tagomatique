@@ -19,13 +19,13 @@ namespace Tagomatique.Models.Abstract
 			base.OnPropertyChanged(propertyName);
 		}
 
-		public abstract void insert();
-		public abstract void update();
-		public abstract void delete();
+		protected abstract void insert();
+		protected abstract void update();
+		protected abstract void delete();
 
 		public virtual void markedAsToRemove() { State = DataModelState.Deleted; }
 
-		protected virtual void save()
+		public virtual void save()
 		{
 			switch (State)
 			{

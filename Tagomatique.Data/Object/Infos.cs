@@ -1,6 +1,8 @@
-﻿namespace Tagomatique.Data.Objects
+﻿using Tagomatique.Data.Interface;
+
+namespace Tagomatique.Data.Object
 {
-	public class Infos
+	public class Infos : IInfos
 	{
 		public string Version { get; set; }
 	}

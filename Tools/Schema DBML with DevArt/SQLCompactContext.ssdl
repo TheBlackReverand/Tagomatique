@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Tagomatique.Data.Context.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:devart="http://devart.com/schemas/edml/StorageSchemaExtensions/1.0" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="SQLCompactContextStoreContainer">
+    <EntitySet Name="Chapitres" EntityType="Tagomatique.Data.Context.Store.Chapitre" store:Type="Tables" Table="Chapitre" />
+    <EntitySet Name="Dossiers" EntityType="Tagomatique.Data.Context.Store.Dossier" store:Type="Tables" Table="Dossier" />
+    <EntitySet Name="Infos" EntityType="Tagomatique.Data.Context.Store.Infos" store:Type="Tables" Table="Infos" />
+    <EntitySet Name="Media" EntityType="Tagomatique.Data.Context.Store.Media" store:Type="Tables" Table="Media" />
+    <EntitySet Name="Signets" EntityType="Tagomatique.Data.Context.Store.Signet" store:Type="Tables" Table="Signet" />
+    <EntitySet Name="Tags" EntityType="Tagomatique.Data.Context.Store.Tag" store:Type="Tables" Table="Tag" />
+  </EntityContainer>
+  <EntityType Name="Chapitre">
+    <Key>
+      <PropertyRef Name="ID_Chapitre" />
+    </Key>
+    <Property Name="ID_Chapitre" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Debut" Type="nvarchar" Nullable="false" MaxLength="12" />
+    <Property Name="Fin" Type="nvarchar" Nullable="false" MaxLength="12" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+    <Property Name="FK_ID_Media" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dossier">
+    <Key>
+      <PropertyRef Name="ID_Dossier" />
+    </Key>
+    <Property Name="ID_Dossier" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Chemin" Type="nvarchar" Nullable="false" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Infos">
+    <Key>
+      <PropertyRef Name="version" />
+    </Key>
+    <Property Name="version" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="ID_Media" />
+    </Key>
+    <Property Name="ID_Media" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RelativeURL" Type="nvarchar" Nullable="false" MaxLength="1000" />
+    <Property Name="FK_ID_Dossier" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Signet">
+    <Key>
+      <PropertyRef Name="ID_Signet" />
+    </Key>
+    <Property Name="ID_Signet" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Duree" Type="nvarchar" Nullable="false" MaxLength="8" />
+    <Property Name="Libelle" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FK_ID_Media" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="ID_Tag" />
+    </Key>
+    <Property Name="ID_Tag" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FK_ID_Media" Type="uniqueidentifier" />
+    <Property Name="FK_ID_Chapitre" Type="uniqueidentifier" />
+  </EntityType>
+</Schema>

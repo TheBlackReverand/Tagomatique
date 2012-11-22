@@ -52,17 +52,17 @@ namespace Tagomatique.Models
 
 		#endregion
 
-		public override void insert()
+		protected override void insert()
 		{
 			ID_Chapitre = AbstractDatabase.DataBase.AjouterChapitre(FK_ID_Media, Description, Debut.ToString("hh:mm:ss.ms"), Fin.ToString("hh:mm:ss.ms"));
 
 			TagomatiqueCache.MarkAsDirty<SignetViewModel>();
 		}
-		public override void update()
+		protected override void update()
 		{
 			throw new NotImplementedException("Modification des Chapitre interdit");
 		}
-		public override void delete()
+		protected override void delete()
 		{
 			AbstractDatabase.DataBase.SupprimerSignet(ID_Chapitre);
 

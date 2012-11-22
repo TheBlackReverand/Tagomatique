@@ -2,72 +2,138 @@
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Tagomatique.Data;
 using Tagomatique.Models;
 
 namespace Tagomatique
 {
-    public partial class App
-    {
-        public App()
-        {
-            File.AppendAllText(@"C:\log.tago.txt", "App.Main()");
+	public partial class App
+	{
+		public App()
+		{
+			File.AppendAllText(@"C:\log.tago.txt", "App.Main()");
 
-            INITIALISER_DOSSIER_MEDIA();
-            INITIALISER_TAG();
-            INITIALISER_SIGNET();
+			INITIALISER_DOSSIER_MEDIA();
+			INITIALISER_TAG();
+			INITIALISER_SIGNET();
 
-            Thread.Sleep(1000);
-        }
+			Thread.Sleep(1000);
+		}
 
-        private static void INITIALISER_DOSSIER_MEDIA()
-        {
-            if (DossierViewModel.GetAll().Count == 0)
-            {
-                DossierViewModel.AjouterDossier("Dossier1", @"D:\img\evil");
-                DossierViewModel.AjouterDossier("Dossier2", @"D:\img\hadopipi");
-            }
+		private static void INITIALISER_DOSSIER_MEDIA()
+		{
+			if (DossierViewModel.GetAll().Count == 0)
+			{
+				DossierViewModel dossier = new DossierViewModel();
+				dossier.Nom = "Dossier1";
+				dossier.Chemin = @"D:\img\evil";
+				dossier.save();
 
-            if (MediaViewModel.GetAll().Count == 0)
-            {
-                MediaViewModel.AjouterMedia("Evil Dead", @"~\25222.gif", DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\evil").ID_Dossier);
-                MediaViewModel.AjouterMedia("Hadopi 1", @"~\hadop1.png", DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\hadopipi").ID_Dossier);
-                MediaViewModel.AjouterMedia("Hadopi 2", @"~\hadop2.jpg", DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\hadopipi").ID_Dossier);
-            }
-        }
-        private static void INITIALISER_TAG()
-        {
-            Guid idEvilDead = MediaViewModel.GetAll().First(d => d.Nom == "Evil Dead").ID_Media;
-            Guid idH1 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 1").ID_Media;
-            Guid idH2 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 2").ID_Media;
+				dossier = new DossierViewModel();
+				dossier.Nom = "Dossier2";
+				dossier.Chemin = @"D:\img\hadopipi";
+				dossier.save();
+			}
 
-            if (TagViewModel.GetAll().Count == 0)
-            {
-                TagViewModel.AjouterTag(idEvilDead, "Evil Dead");
-                TagViewModel.AjouterTag(idEvilDead, "Humour");
-                TagViewModel.AjouterTag(idEvilDead, "Jumeaux");
-                TagViewModel.AjouterTag(idEvilDead, "Film");
+			if (MediaViewModel.GetAll().Count == 0)
+			{
+				MediaViewModel media = new MediaViewModel();
+				media.Nom = "Evil Dead";
+				media.RelativeURL = @"~\25222.gif";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\evil").ID_Dossier;
+				media.save();
 
-                TagViewModel.AjouterTag(idH1, "Humour");
-                TagViewModel.AjouterTag(idH1, "Hadopi");
-                TagViewModel.AjouterTag(idH1, "DTC");
+				media = new MediaViewModel();
+				media.Nom = "Hadopi 1";
+				media.RelativeURL = @"~\hadop1.png";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\hadopipi").ID_Dossier;
+				media.save();
 
-                TagViewModel.AjouterTag(idH2, "Humour");
-                TagViewModel.AjouterTag(idH2, "Hadopi");
-                TagViewModel.AjouterTag(idH2, "Cortex");
-            }
-        }
-        private static void INITIALISER_SIGNET()
-        {
-            Guid idEvilDead = MediaViewModel.GetAll().First(d => d.Nom == "Evil Dead").ID_Media;
-            Guid idH1 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 1").ID_Media;
-            Guid idH2 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 2").ID_Media;
+				media = new MediaViewModel();
+				media.Nom = "Hadopi 2";
+				media.RelativeURL = @"~\hadop2.jpg";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\hadopipi").ID_Dossier;
+				media.save();
+			}
+		}
+		private static void INITIALISER_TAG()
+		{
+			Guid idEvilDead = MediaViewModel.GetAll().First(d => d.Nom == "Evil Dead").ID_Media;
+			Guid idH1 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 1").ID_Media;
+			Guid idH2 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 2").ID_Media;
 
-            if (SignetViewModel.GetAll().Count == 0)
-            {
-                SignetViewModel.AjouterSignet(idH1, "Hadopi", new TimeSpan(1, 43, 55));
-                SignetViewModel.AjouterSignet(idH2, "Hadopi", new TimeSpan(1, 43, 55));
-            }
-        }
-    }
+			if (TagViewModel.GetAll().Count == 0)
+			{
+				TagViewModel tag = new TagViewModel();
+				tag.Libelle = "Evil Dead";
+				tag.FK_ID_Media = idEvilDead;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Humour";
+				tag.FK_ID_Media = idEvilDead;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Jumeaux";
+				tag.FK_ID_Media = idEvilDead;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Film";
+				tag.FK_ID_Media = idEvilDead;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Humour";
+				tag.FK_ID_Media = idH1;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Hadopi";
+				tag.FK_ID_Media = idH1;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "DTC";
+				tag.FK_ID_Media = idH1;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Humour";
+				tag.FK_ID_Media = idH2;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Hadopi";
+				tag.FK_ID_Media = idH2;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Cortex";
+				tag.FK_ID_Media = idH2;
+				tag.save();
+			}
+		}
+		private static void INITIALISER_SIGNET()
+		{
+			Guid idEvilDead = MediaViewModel.GetAll().First(d => d.Nom == "Evil Dead").ID_Media;
+			Guid idH1 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 1").ID_Media;
+			Guid idH2 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 2").ID_Media;
+
+			if (SignetViewModel.GetAll().Count == 0)
+			{
+				SignetViewModel signet = new SignetViewModel();
+				signet.Libelle = "Hadopi";
+				signet.Duree = new TimeSpan(1, 43, 55);
+				signet.FK_ID_Media = idH1;
+				signet.save();
+
+				signet = new SignetViewModel();
+				signet.Libelle = "Hadopi";
+				signet.Duree = new TimeSpan(1, 43, 55);
+				signet.FK_ID_Media = idH2;
+				signet.save();
+			}
+		}
+	}
 }

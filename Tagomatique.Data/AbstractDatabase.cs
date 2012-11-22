@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tagomatique.Data.Objects;
+using Tagomatique.Data.Interface;
 using Tagomatique.Resources;
 using Tagomatique.Resources.Enums;
 
@@ -8,7 +8,7 @@ namespace Tagomatique.Data
 {
 	public abstract class AbstractDatabase
 	{
-		#region Singletoon
+		#region Singleton
 
 		private static AbstractDatabase dataBase;
 		public static AbstractDatabase DataBase
@@ -40,7 +40,7 @@ namespace Tagomatique.Data
 
 		#region Infos
 
-		public abstract Infos GetInfos();
+		public abstract IInfos GetInfos();
 		public abstract string GetVersion();
 
 		#endregion Infos
@@ -48,8 +48,7 @@ namespace Tagomatique.Data
 
 		#region Dossiers
 
-		public abstract List<Dossier> GetAllDossier();
-		public abstract Dossier GetDossierByKey(Guid idDossier);
+		public abstract List<IDossier> GetAllDossier();
 
 		public abstract Guid AjouterDossier(string nom, string chemin);
 		public abstract void ModifierDossier(Guid idDossier, string nom, string chemin);
@@ -59,8 +58,7 @@ namespace Tagomatique.Data
 
 		#region Medias
 
-		public abstract List<Media> GetAllMedia();
-		public abstract Media GetMediaByKey(Guid idMedia);
+		public abstract List<IMedia> GetAllMedia();
 
 		public abstract Guid AjouterMedia(string nom, string relativeURL, Guid idDossier);
 		public abstract void ModifierMedia(Guid idMedia, string nom, string relativeURL, Guid idDossier);
@@ -71,10 +69,7 @@ namespace Tagomatique.Data
 
 		#region Tags
 
-		public abstract List<Tag> GetAllTag();
-		public abstract Tag GetTagByKey(Guid idTag);
-		public abstract List<Tag> GetTagOfMedia(Guid idMedia);
-		public abstract List<Tag> GetTagOfChapitre(Guid idChapitre);
+		public abstract List<ITag> GetAllTag();
 
 		public abstract Guid AjouterTagForMedia(Guid idMedia, string libelleTexte);
 		public abstract Guid AjouterTagForChapitre(Guid idChapitre, string libelleTexte);
@@ -84,9 +79,7 @@ namespace Tagomatique.Data
 
 		#region Signets
 
-		public abstract List<Signet> GetAllSignet();
-		public abstract Signet GetSignetByKey(Guid idSignet);
-		public abstract List<Signet> GetSignetOfMedia(Guid idMedia);
+		public abstract List<ISignet> GetAllSignet();
 
 		public abstract Guid AjouterSignet(Guid idMedia, string libelleTexte, string duree);
 		public abstract void SupprimerSignet(Guid idSignet);
@@ -95,9 +88,7 @@ namespace Tagomatique.Data
 	
 		#region Chapitres
 
-		public abstract List<Chapitre> GetAllChapitre();
-		public abstract Chapitre GetChapitreByKey(Guid idChapitre);
-		public abstract List<Chapitre> GetChapitreOfMedia(Guid idMedia);
+		public abstract List<IChapitre> GetAllChapitre();
 
 		public abstract Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin);
 		public abstract void SupprimerChapitre(Guid idChapitre);
