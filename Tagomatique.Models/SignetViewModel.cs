@@ -52,7 +52,7 @@ namespace Tagomatique.Models
 
 		protected override void insert()
 		{
-			ID_Signet = AbstractDatabase.DataBase.AjouterSignet(FK_ID_Media, Libelle, Duree.ToString("hh:mm:ss.ms"));
+			ID_Signet = AbstractDatabase.DataBase.AjouterSignet(FK_ID_Media, Libelle, Duree.ToString("hh':'mm':'ss'.'ms"));
 
 			TagomatiqueCache.MarkAsDirty<SignetViewModel>();
 		}

@@ -11,7 +11,12 @@ namespace Tagomatique.Data
 	{
 		private static SQLCompactContext GetContext()
 		{
-			return new SQLCompactContext("Data Source=|DataDirectory|\\Tagomatique.sdf");
+			const string connectionString =
+				@"metadata=res://*/Context.SQLCompactContext.csdl|res://*/Context.SQLCompactContext.ssdl|res://*/Context.SQLCompactContext.msl;" +
+				@"provider=System.Data.SqlServerCe.3.5;" +
+				@"provider connection string=""Data Source=|DataDirectory|\Tagomatique.sdf"";";
+
+			return new SQLCompactContext(connectionString);
 		}
 
 		#region Infos
@@ -41,7 +46,7 @@ namespace Tagomatique.Data
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Dossier.Cast<IDossier>().ToList();
+				return context.Dossier.ToList().Cast<IDossier>().ToList();
 			}
 		}
 
@@ -101,7 +106,7 @@ namespace Tagomatique.Data
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Media.Cast<IMedia>().ToList();
+				return context.Media.ToList().Cast<IMedia>().ToList();
 			}
 		}
 
@@ -164,7 +169,7 @@ namespace Tagomatique.Data
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Tag.Cast<ITag>().ToList();
+				return context.Tag.ToList().Cast<ITag>().ToList();
 			}
 		}
 
@@ -178,12 +183,12 @@ namespace Tagomatique.Data
 				if (!context.Tag.Any(toc => toc.FK_ID_Chapitre == idChapitre && toc.Libelle == libelleTexte))
 				{
 					Tag newTag = new Tag
-					             	{
-					             		ID_Tag = id,
-					             		Libelle = libelleTexte,
-					             		FK_ID_Chapitre = idChapitre,
-					             		FK_ID_Media = null
-					             	};
+									{
+										ID_Tag = id,
+										Libelle = libelleTexte,
+										FK_ID_Chapitre = idChapitre,
+										FK_ID_Media = null
+									};
 
 					context.Tag.AddObject(newTag);
 					context.SaveChanges();
@@ -241,7 +246,7 @@ namespace Tagomatique.Data
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Signet.Cast<ISignet>().ToList();
+				return context.Signet.ToList().Cast<ISignet>().ToList();
 			}
 		}
 
@@ -292,7 +297,7 @@ namespace Tagomatique.Data
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Chapitre.Cast<IChapitre>().ToList();
+				return context.Chapitre.ToList().Cast<IChapitre>().ToList();
 			}
 		}
 

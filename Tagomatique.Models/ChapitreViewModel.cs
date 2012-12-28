@@ -54,7 +54,7 @@ namespace Tagomatique.Models
 
 		protected override void insert()
 		{
-			ID_Chapitre = AbstractDatabase.DataBase.AjouterChapitre(FK_ID_Media, Description, Debut.ToString("hh:mm:ss.ms"), Fin.ToString("hh:mm:ss.ms"));
+			ID_Chapitre = AbstractDatabase.DataBase.AjouterChapitre(FK_ID_Media, Description, Debut.ToString("hh':'mm':'ss'.'ms"), Fin.ToString("hh':'mm':'ss'.'ms"));
 
 			TagomatiqueCache.MarkAsDirty<SignetViewModel>();
 		}
