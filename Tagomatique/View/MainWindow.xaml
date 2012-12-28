@@ -20,8 +20,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <!-- Barre de menu -->
             <RowDefinition Height="26" />
+
+            <!-- Zone principale -->
             <RowDefinition Height="*" />
+
+            <!-- Barre d'état/information -->
             <RowDefinition Height="26" />
         </Grid.RowDefinitions>
 
@@ -29,6 +34,7 @@
             <conv:BitmapConverter x:Key="convBitmap" />
         </Grid.Resources>
 
+        <!-- Barre de menu -->
         <StackPanel Grid.Row="0" Margin="3" FlowDirection="RightToLeft">
             <Button Height="20" Width="20" HorizontalAlignment="Left" Command="{Binding ShowSearchWindowCommand}">
                 <Button.Template>
@@ -39,18 +45,44 @@
             </Button>
         </StackPanel>
 
-        <ListBox Name="lstTagDisponible"
+        <!-- Zone principale -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <!-- Selection des Tags -->
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Selection des Tags -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="20" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="{x:Static Ressources:Messages.TagsDisponibles}" />
+                <ListBox Name="lstTagDisponible"
                  Grid.Row="1"
                  Style="{StaticResource GroupedTagListBoxStyle}"
-                 ItemsSource="{Binding GroupedTagDisponibles, Mode=OneWay}"
-                 Width="200" HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+                 ItemsSource="{Binding GroupedTagDisponibles, Mode=OneWay}" />
 
-        <ListBox Name="lstTagSelectionner"
-                 Grid.Row="1"
+                <TextBlock Grid.Row="2" Text="{x:Static Ressources:Messages.TagsSelectionner}" />
+                <ListBox Name="lstTagSelectionner"
+                 Grid.Row="3"
                  Style="{StaticResource GroupedTagListBoxStyle}"
-                 ItemsSource="{Binding GroupedTagSelectionner, Mode=OneWay}"
-                 Width="200" HorizontalAlignment="Right" VerticalAlignment="Stretch" />
+                 ItemsSource="{Binding GroupedTagSelectionner, Mode=OneWay}" />
+            </Grid>
 
+            <!-- Liste des Media correspondant -->
+            <ListBox Name="lstMediaCorrespondant"
+                 Grid.Column="1"
+                 Style="{StaticResource MediaListBoxStyle}"
+                 ItemsSource="{Binding MediaCorrespondant, Mode=OneWay}" />
+        </Grid>
+
+        <!-- Barre d'état/information -->
         <TextBlock Grid.Row="2" Text="{x:Static Ressources:Erreurs.DataModeNonSupporter}" />
     </Grid>
 </Window>
