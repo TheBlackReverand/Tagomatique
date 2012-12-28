@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using Tagomatique.Models;
@@ -10,8 +9,6 @@ namespace Tagomatique
 	{
 		public App()
 		{
-			File.AppendAllText(@"C:\log.tago.txt", "App.Main()");
-
 			INITIALISER_DOSSIER_MEDIA();
 			INITIALISER_TAG();
 			INITIALISER_SIGNET();
