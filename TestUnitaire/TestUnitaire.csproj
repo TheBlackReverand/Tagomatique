@@ -37,20 +37,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -58,34 +49,19 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\DossierViewModelTest.cs" />
+    <Compile Include="BaseTest.cs" />
     <Compile Include="Tools\PathToolsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tagomatique.Data\Tagomatique.Data.csproj">
-      <Project>{7DA0D919-81B0-4096-9588-C017F9A9A136}</Project>
-      <Name>Tagomatique.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tagomatique.Models\Tagomatique.Models.csproj">
-      <Project>{1CE2A3A3-37CF-4054-A5FA-E17D1544C2F2}</Project>
-      <Name>Tagomatique.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tagomatique.Resources\Tagomatique.Resources.csproj">
-      <Project>{3111DCA3-AD40-43AE-B277-55E63A3CA36E}</Project>
-      <Name>Tagomatique.Resources</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tagomatique.Tools\Tagomatique.Tools.csproj">
       <Project>{15231301-23F0-412B-81FB-71497B7DC668}</Project>
       <Name>Tagomatique.Tools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Tagomatique\Tagomatique.csproj">
-      <Project>{F10D4F8E-3663-4E63-95C4-338962AC8645}</Project>
-      <Name>Tagomatique</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
