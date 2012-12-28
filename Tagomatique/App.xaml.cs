@@ -21,114 +21,104 @@ namespace Tagomatique
 			if (DossierViewModel.GetAll().Count == 0)
 			{
 				DossierViewModel dossier = new DossierViewModel();
-				dossier.Nom = "Dossier1";
-				dossier.Chemin = @"D:\img\evil";
+				dossier.Nom = "Divx_1";
+				dossier.Chemin = @"\\SRVTBR\Divx_1";
 				dossier.save();
 
 				dossier = new DossierViewModel();
-				dossier.Nom = "Dossier2";
-				dossier.Chemin = @"D:\img\hadopipi";
+				dossier.Nom = "Divx_2";
+				dossier.Chemin = @"\\SRVTBR\Divx_2";
 				dossier.save();
 			}
 
 			if (MediaViewModel.GetAll().Count == 0)
 			{
 				MediaViewModel media = new MediaViewModel();
-				media.Nom = "Evil Dead";
-				media.RelativeURL = @"~\25222.gif";
-				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\evil").ID_Dossier;
+				media.Nom = "28 jours plus tard";
+				media.RelativeURL = @"~\28 jours plus tard\28 semaines plus tard.avi";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Divx_1").ID_Dossier;
 				media.save();
 
 				media = new MediaViewModel();
-				media.Nom = "Hadopi 1";
-				media.RelativeURL = @"~\hadop1.png";
-				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\hadopipi").ID_Dossier;
+				media.Nom = "Massacre à la tronçonneuse 1";
+				media.RelativeURL = @"~\Massacre à la tronçonneuse\Massacre à la tronçonneuse [2003].avi";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Divx_2").ID_Dossier;
 				media.save();
 
 				media = new MediaViewModel();
-				media.Nom = "Hadopi 2";
-				media.RelativeURL = @"~\hadop2.jpg";
-				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"D:\img\hadopipi").ID_Dossier;
+				media.Nom = "Massacre à la tronçonneuse 2";
+				media.RelativeURL = @"~\Massacre à la tronçonneuse\Massacre à la tronçonneuse 2 [1986].avi";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Divx_2").ID_Dossier;
 				media.save();
 			}
 		}
 		private static void INITIALISER_TAG()
 		{
-			Guid idEvilDead = MediaViewModel.GetAll().First(d => d.Nom == "Evil Dead").ID_Media;
-			Guid idH1 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 1").ID_Media;
-			Guid idH2 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 2").ID_Media;
+			Guid id28 = MediaViewModel.GetAll().First(d => d.Nom == "28 jours plus tard").ID_Media;
+			Guid idMassacre1 = MediaViewModel.GetAll().First(d => d.Nom == "Massacre à la tronçonneuse 1").ID_Media;
+			Guid idMassacre2 = MediaViewModel.GetAll().First(d => d.Nom == "Massacre à la tronçonneuse 2").ID_Media;
 
 			if (TagViewModel.GetAll().Count == 0)
 			{
 				TagViewModel tag = new TagViewModel();
-				tag.Libelle = "Evil Dead";
-				tag.FK_ID_Media = idEvilDead;
-				tag.save();
-
-				tag = new TagViewModel();
-				tag.Libelle = "Humour";
-				tag.FK_ID_Media = idEvilDead;
-				tag.save();
-
-				tag = new TagViewModel();
-				tag.Libelle = "Jumeaux";
-				tag.FK_ID_Media = idEvilDead;
+				tag.Libelle = "Horreur";
+				tag.FK_ID_Media = id28;
 				tag.save();
 
 				tag = new TagViewModel();
 				tag.Libelle = "Film";
-				tag.FK_ID_Media = idEvilDead;
+				tag.FK_ID_Media = id28;
+				tag.save();
+
+
+				tag = new TagViewModel();
+				tag.Libelle = "Trash";
+				tag.FK_ID_Media = idMassacre1;
 				tag.save();
 
 				tag = new TagViewModel();
-				tag.Libelle = "Humour";
-				tag.FK_ID_Media = idH1;
+				tag.Libelle = "Film";
+				tag.FK_ID_Media = idMassacre1;
 				tag.save();
 
 				tag = new TagViewModel();
-				tag.Libelle = "Hadopi";
-				tag.FK_ID_Media = idH1;
+				tag.Libelle = "Massacre";
+				tag.FK_ID_Media = idMassacre1;
+				tag.save();
+
+
+				tag = new TagViewModel();
+				tag.Libelle = "Trash";
+				tag.FK_ID_Media = idMassacre2;
 				tag.save();
 
 				tag = new TagViewModel();
-				tag.Libelle = "DTC";
-				tag.FK_ID_Media = idH1;
+				tag.Libelle = "Film";
+				tag.FK_ID_Media = idMassacre2;
 				tag.save();
 
 				tag = new TagViewModel();
-				tag.Libelle = "Humour";
-				tag.FK_ID_Media = idH2;
-				tag.save();
-
-				tag = new TagViewModel();
-				tag.Libelle = "Hadopi";
-				tag.FK_ID_Media = idH2;
-				tag.save();
-
-				tag = new TagViewModel();
-				tag.Libelle = "Cortex";
-				tag.FK_ID_Media = idH2;
+				tag.Libelle = "Massacre";
+				tag.FK_ID_Media = idMassacre2;
 				tag.save();
 			}
 		}
 		private static void INITIALISER_SIGNET()
 		{
-			Guid idEvilDead = MediaViewModel.GetAll().First(d => d.Nom == "Evil Dead").ID_Media;
-			Guid idH1 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 1").ID_Media;
-			Guid idH2 = MediaViewModel.GetAll().First(d => d.Nom == "Hadopi 2").ID_Media;
+			Guid idMassacre1 = MediaViewModel.GetAll().First(d => d.Nom == "Massacre à la tronçonneuse 1").ID_Media;
 
 			if (SignetViewModel.GetAll().Count == 0)
 			{
 				SignetViewModel signet = new SignetViewModel();
-				signet.Libelle = "Hadopi";
-				signet.Duree = new TimeSpan(1, 43, 55);
-				signet.FK_ID_Media = idH1;
+				signet.Libelle = "Début film";
+				signet.Duree = new TimeSpan(0, 0, 20, 55, 198);
+				signet.FK_ID_Media = idMassacre1;
 				signet.save();
 
 				signet = new SignetViewModel();
-				signet.Libelle = "Hadopi";
-				signet.Duree = new TimeSpan(1, 43, 55);
-				signet.FK_ID_Media = idH2;
+				signet.Libelle = "Premier sang";
+				signet.Duree = new TimeSpan(0, 1, 5, 47, 257);
+				signet.FK_ID_Media = idMassacre1;
 				signet.save();
 			}
 		}
