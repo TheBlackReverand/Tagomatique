@@ -10,7 +10,7 @@ using Tagomatique.Tools;
 
 namespace Tagomatique.Models
 {
-	public class MediaViewModel : DataViewModelBase
+	public class MediaViewModel : DataViewModelBase, IEqualityComparer<MediaViewModel>
 	{
 		#region Champs
 
@@ -43,14 +43,34 @@ namespace Tagomatique.Models
 			get { return ChapitreViewModel.GetByMediaKey(ID_Media); }
 		}
 
+		public string AbsoluteURL
+		{
+			get { return RelativeURL.Replace("~", Dossier.Chemin); }
+		}
+
 		public bool IsValid
 		{
 			get
 			{
-				return File.Exists(RelativeURL) && (Parametres.ValidExtensionMusique.Contains(Path.GetExtension(RelativeURL))
-				                                    || Parametres.ValidExtensionPhoto.Contains(Path.GetExtension(RelativeURL))
-				                                    || Parametres.ValidExtensionVideo.Contains(Path.GetExtension(RelativeURL)));
+				string extension = Path.GetExtension(RelativeURL);
+
+				return File.Exists(RelativeURL) && (Parametres.ValidExtensionMusique.Contains(extension)
+													|| Parametres.ValidExtensionPhoto.Contains(extension)
+													|| Parametres.ValidExtensionVideo.Contains(extension));
 			}
+		}
+
+		public bool IsMusique
+		{
+			get { return Parametres.ValidExtensionMusique.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
+		}
+		public bool IsPhoto
+		{
+			get { return Parametres.ValidExtensionPhoto.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
+		}
+		public bool IsVideo
+		{
+			get { return Parametres.ValidExtensionVideo.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
 		}
 
 		#endregion Proprietes
@@ -87,6 +107,17 @@ namespace Tagomatique.Models
 		{
 			return TagomatiqueCache.GetAll(GetAllFromDB).Where(m => m.FK_ID_Dossier == idDossier).ToList();
 		}
+		public static List<MediaViewModel> GetByTagLibelle(IEnumerable<string> tagsLibelle)
+		{
+			IEnumerable<Guid> lstIdMediaCorrepondant = TagViewModel.GetAll()
+				.Where(tag => tag.FK_ID_Media.HasValue && tagsLibelle.Contains(tag.Libelle))
+				// ReSharper disable PossibleInvalidOperationException (checked in Where clause)
+				.Select(tag => tag.FK_ID_Media.Value)
+				// ReSharper restore PossibleInvalidOperationException
+				.Distinct();
+
+			return TagomatiqueCache.GetAll(GetAllFromDB).Where(m => lstIdMediaCorrepondant.Contains(m.ID_Media)).ToList();
+		}
 
 		#endregion
 
@@ -106,5 +137,19 @@ namespace Tagomatique.Models
 
 			TagomatiqueCache.MarkAsDirty<MediaViewModel>();
 		}
+
+		#region Implementation of IEqualityComparer<in MediaViewModel>
+
+		public bool Equals(MediaViewModel x, MediaViewModel y)
+		{
+			return x.FK_ID_Dossier == y.FK_ID_Dossier && x.ID_Media == y.ID_Media;
+		}
+
+		public int GetHashCode(MediaViewModel obj)
+		{
+			return base.GetHashCode();
+		}
+
+		#endregion
 	}
 }

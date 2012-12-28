@@ -159,6 +159,12 @@
   <data name="SelectionnerFichier" xml:space="preserve">
     <value>Veuillez selectionné le(s) fichier(s) à ajouté(s)</value>
   </data>
+  <data name="TagsDisponibles" xml:space="preserve">
+    <value>Tag(s) disponible(s)</value>
+  </data>
+  <data name="TagsSelectionner" xml:space="preserve">
+    <value>Tag(s) selectionné(s)</value>
+  </data>
   <data name="Valider" xml:space="preserve">
     <value>Valider</value>
   </data>

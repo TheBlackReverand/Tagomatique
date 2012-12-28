@@ -91,6 +91,7 @@
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SearchWindowContext.cs" />
+    <Compile Include="View\TemplateSelector\MediaTemplateSelector.cs" />
     <None Include="App.config" />
     <None Include="ClassDiagram2.cd" />
     <AppDesigner Include="Properties\" />
