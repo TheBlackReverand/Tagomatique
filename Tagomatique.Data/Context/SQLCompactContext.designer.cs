@@ -14,7 +14,6 @@ using System.Data.Objects.DataClasses;
 using System.Data.EntityClient;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Data;
 using System.Linq;
