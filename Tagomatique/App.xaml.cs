@@ -29,6 +29,11 @@ namespace Tagomatique
 				dossier.Nom = "Divx_2";
 				dossier.Chemin = @"\\SRVTBR\Divx_2";
 				dossier.save();
+
+				dossier = new DossierViewModel();
+				dossier.Nom = "Photo_1";
+				dossier.Chemin = @"\\SRVTBR\Photos";
+				dossier.save();
 			}
 
 			if (MediaViewModel.GetAll().Count == 0)
@@ -50,6 +55,18 @@ namespace Tagomatique
 				media.RelativeURL = @"~\Massacre à la tronçonneuse\Massacre à la tronçonneuse 2 [1986].avi";
 				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Divx_2").ID_Dossier;
 				media.save();
+
+				media = new MediaViewModel();
+				media.Nom = "Dexter 1";
+				media.RelativeURL = @"~\Dexter\Photo (1).jpg";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Photos").ID_Dossier;
+				media.save();
+
+				media = new MediaViewModel();
+				media.Nom = "Dexter 2";
+				media.RelativeURL = @"~\Dexter\Photo (2).jpg";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Photos").ID_Dossier;
+				media.save();
 			}
 		}
 		private static void INITIALISER_TAG()
@@ -57,6 +74,8 @@ namespace Tagomatique
 			Guid id28 = MediaViewModel.GetAll().First(d => d.Nom == "28 jours plus tard").ID_Media;
 			Guid idMassacre1 = MediaViewModel.GetAll().First(d => d.Nom == "Massacre à la tronçonneuse 1").ID_Media;
 			Guid idMassacre2 = MediaViewModel.GetAll().First(d => d.Nom == "Massacre à la tronçonneuse 2").ID_Media;
+			Guid idDexter1 = MediaViewModel.GetAll().First(d => d.Nom == "Dexter 1").ID_Media;
+			Guid idDexter2 = MediaViewModel.GetAll().First(d => d.Nom == "Dexter 2").ID_Media;
 
 			if (TagViewModel.GetAll().Count == 0)
 			{
@@ -100,6 +119,16 @@ namespace Tagomatique
 				tag = new TagViewModel();
 				tag.Libelle = "Massacre";
 				tag.FK_ID_Media = idMassacre2;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Dexter";
+				tag.FK_ID_Media = idDexter1;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Dexter";
+				tag.FK_ID_Media = idDexter2;
 				tag.save();
 			}
 		}
