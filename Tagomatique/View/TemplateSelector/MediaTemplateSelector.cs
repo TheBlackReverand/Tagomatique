@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Tagomatique.Models;
+using Tagomatique.Resources.Enums;
 
 namespace Tagomatique.View.TemplateSelector
 {
 	public class MediaTemplateSelector : DataTemplateSelector
 	{
-		public DataTemplate PhotoTemplate { get; set; }
+		public DataTemplate PictureTemplate { get; set; }
 		public DataTemplate StringTemplate { get; set; }
 
 		public DataTemplate OtherTemplate { get; set; }
@@ -15,15 +16,22 @@ namespace Tagomatique.View.TemplateSelector
 		{
 			MediaViewModel media = item as MediaViewModel;
 
-			if (media != null)
+			if (media == null)
 			{
-				if (media.IsPhoto)
-					return PhotoTemplate;
-
-				return StringTemplate;
+				return OtherTemplate;
 			}
 
-			return OtherTemplate;
+			switch (media.MediaType)
+			{
+				case MediaType.Photo:
+				case MediaType.Video:
+				case MediaType.Musique:
+					return PictureTemplate;
+
+				default:
+				case MediaType.Autre:
+					return StringTemplate;
+			}
 		}
 	}
 }
