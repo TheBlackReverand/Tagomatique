@@ -34,6 +34,11 @@ namespace Tagomatique
 				dossier.Nom = "Photo_1";
 				dossier.Chemin = @"\\SRVTBR\Photos";
 				dossier.save();
+
+				dossier = new DossierViewModel();
+				dossier.Nom = "Musiques";
+				dossier.Chemin = @"\\SRVTBR\Musiques";
+				dossier.save();
 			}
 
 			if (MediaViewModel.GetAll().Count == 0)
@@ -67,6 +72,12 @@ namespace Tagomatique
 				media.RelativeURL = @"~\Dexter\Photo (2).jpg";
 				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Photos").ID_Dossier;
 				media.save();
+
+				media = new MediaViewModel();
+				media.Nom = "Mylene1";
+				media.RelativeURL = @"~\Mylène Farmer\Avant que l'ombre\04 Q.I..mp3";
+				media.FK_ID_Dossier = DossierViewModel.GetAll().First(d => d.Chemin == @"\\SRVTBR\Musiques").ID_Dossier;
+				media.save();
 			}
 		}
 		private static void INITIALISER_TAG()
@@ -76,6 +87,7 @@ namespace Tagomatique
 			Guid idMassacre2 = MediaViewModel.GetAll().First(d => d.Nom == "Massacre à la tronçonneuse 2").ID_Media;
 			Guid idDexter1 = MediaViewModel.GetAll().First(d => d.Nom == "Dexter 1").ID_Media;
 			Guid idDexter2 = MediaViewModel.GetAll().First(d => d.Nom == "Dexter 2").ID_Media;
+			Guid idMylene1 = MediaViewModel.GetAll().First(d => d.Nom == "Mylene1").ID_Media;
 
 			if (TagViewModel.GetAll().Count == 0)
 			{
@@ -129,6 +141,11 @@ namespace Tagomatique
 				tag = new TagViewModel();
 				tag.Libelle = "Dexter";
 				tag.FK_ID_Media = idDexter2;
+				tag.save();
+
+				tag = new TagViewModel();
+				tag.Libelle = "Mylene";
+				tag.FK_ID_Media = idMylene1;
 				tag.save();
 			}
 		}
