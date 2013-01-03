@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Windows.Media.Imaging;
 using Tagomatique.Data;
 using Tagomatique.Models.Abstract;
 using Tagomatique.Resources;
@@ -10,8 +12,47 @@ using Tagomatique.Tools;
 
 namespace Tagomatique.Models
 {
-	public class MediaViewModel : DataViewModelBase, IEqualityComparer<MediaViewModel>
+	public class MediaViewModel : DataViewModelBase, IEqualityComparer<MediaViewModel>, IDisposable
 	{
+		private static class InternalTools
+		{
+			#region Thumbnail Tools
+
+			public static void GenerateThumbnail(MediaViewModel mediaViewModel)
+			{
+				switch (mediaViewModel.MediaType)
+				{
+					case MediaType.Photo:
+						ThreadPool.QueueUserWorkItem(delegate { PictureTools.GenerateThumbnailOfPicture(mediaViewModel.AbsoluteURL, mediaViewModel.ID_Media, setImage); });
+						break;
+
+					case MediaType.Video:
+						ThreadPool.QueueUserWorkItem(delegate { VideoTools.CaptureScreen(mediaViewModel.AbsoluteURL, mediaViewModel.ID_Media, new TimeSpan(0, 0, 30, 0), "Thumbnail", 0.5, null, setImage); });
+						break;
+
+					case MediaType.Musique:
+						ThreadPool.QueueUserWorkItem(delegate { AudioTools.ReadMP3CoverArt(mediaViewModel.AbsoluteURL, mediaViewModel.ID_Media, setImage); });
+						break;
+
+					case MediaType.Autre:
+						break;
+
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			}
+
+			private static void setImage(BitmapSource frame, Guid mediaViewModelId, object timeSpanId)
+			{
+				MediaViewModel media = GetByKey(mediaViewModelId);
+
+				media._thumbnail = frame;
+				media.OnPropertyChanged("Thumbnail");
+			}
+
+			#endregion
+		}
+
 		#region Champs
 
 		public Guid ID_Media { get; private set; }
@@ -54,7 +95,10 @@ namespace Tagomatique.Models
 			{
 				string extension = Path.GetExtension(RelativeURL);
 
-				return File.Exists(RelativeURL) && (Parametres.ValidExtensionMusique.Contains(extension)
+				if (!String.IsNullOrEmpty(extension))
+					extension = extension.ToUpper();
+
+				return File.Exists(AbsoluteURL) && (Parametres.ValidExtensionMusique.Contains(extension)
 													|| Parametres.ValidExtensionPhoto.Contains(extension)
 													|| Parametres.ValidExtensionVideo.Contains(extension));
 			}
@@ -62,15 +106,52 @@ namespace Tagomatique.Models
 
 		public bool IsMusique
 		{
-			get { return Parametres.ValidExtensionMusique.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
+			get { return Path.HasExtension(RelativeURL) && Parametres.ValidExtensionMusique.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
 		}
 		public bool IsPhoto
 		{
-			get { return Parametres.ValidExtensionPhoto.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
+			get { return Path.HasExtension(RelativeURL) && Parametres.ValidExtensionPhoto.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
 		}
 		public bool IsVideo
 		{
-			get { return Parametres.ValidExtensionVideo.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
+			get { return Path.HasExtension(RelativeURL) && Parametres.ValidExtensionVideo.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
+		}
+
+		public MediaType MediaType
+		{
+			get
+			{
+				if (IsValid)
+				{
+					if (IsPhoto)
+						return MediaType.Photo;
+
+					if (IsMusique)
+						return MediaType.Musique;
+
+					if (IsVideo)
+						return MediaType.Video;
+				}
+
+				return MediaType.Autre;
+			}
+		}
+
+		private BitmapSource _thumbnail;
+		/// <summary>
+		/// Obtient le thumbnail de l'image source
+		/// </summary>
+		public BitmapSource Thumbnail
+		{
+			get
+			{
+				if (_thumbnail == null)
+				{
+					InternalTools.GenerateThumbnail(this);
+				}
+
+				return _thumbnail;
+			}
 		}
 
 		#endregion Proprietes
@@ -148,6 +229,15 @@ namespace Tagomatique.Models
 		public int GetHashCode(MediaViewModel obj)
 		{
 			return base.GetHashCode();
+		}
+
+		#endregion
+
+		#region Implementation of IDisposable
+
+		public void Dispose()
+		{
+			_thumbnail = null;
 		}
 
 		#endregion
