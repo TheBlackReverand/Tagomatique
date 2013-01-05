@@ -2,7 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ViewRessources="clr-namespace:Tagomatique.View.TemplateSelector"
                     xmlns:models="clr-namespace:Tagomatique.Models;assembly=Tagomatique.Models">
-    <Style x:Key="GroupedTagListBoxStyle" TargetType="{x:Type ListBox}">
+    <Style x:Key="GroupedTagListBoxStyle" TargetType="ListBox">
+        <Style.Resources>
+            <Style TargetType="ListBoxItem">
+                <Style.Resources>
+                    <!-- SelectedItem with focus -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                    <!-- SelectedItem without focus -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                    <!-- SelectedItem text foreground -->
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                </Style.Resources>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+        </Style.Resources>
+        
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ItemsPanel">
@@ -25,7 +39,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MediaListBoxStyle" TargetType="{x:Type ListBox}">
+    <Style x:Key="MediaListBoxStyle" TargetType="ListBox">
         <Style.Resources>
             <DataTemplate x:Key="stringTemplate" DataType="models:MediaViewModel">
                 <TextBlock Width="80" Height="80" Text="{Binding Nom}" TextWrapping="WrapWithOverflow" />
