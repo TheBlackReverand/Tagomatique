@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 using Tagomatique.Models;
 using Tagomatique.Models.Abstract;
 using Tagomatique.Tools;
-using System.IO;
 
 namespace Tagomatique.View
 {

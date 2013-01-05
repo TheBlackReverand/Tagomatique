@@ -36,7 +36,7 @@ namespace Tagomatique.Tools
 
         public void Execute(object parameter) { execute(); }
 
-        public bool CanExecute(object parameter) { return canExecute == null ? true : canExecute(); }
+        public bool CanExecute(object parameter) { return canExecute == null || canExecute(); }
     }
 
     public class RelayCommand<T> : ICommand
@@ -72,6 +72,6 @@ namespace Tagomatique.Tools
 
         public void Execute(object parameter) { execute((T)parameter); }
 
-        public bool CanExecute(object parameter) { return canExecute == null ? true : canExecute((T)parameter); }
+        public bool CanExecute(object parameter) { return canExecute == null || canExecute((T)parameter); }
     }
 }

@@ -104,6 +104,7 @@ namespace Tagomatique.Models
 			}
 		}
 
+		// ReSharper disable PossibleNullReferenceException
 		public bool IsMusique
 		{
 			get { return Path.HasExtension(RelativeURL) && Parametres.ValidExtensionMusique.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
@@ -116,6 +117,7 @@ namespace Tagomatique.Models
 		{
 			get { return Path.HasExtension(RelativeURL) && Parametres.ValidExtensionVideo.Contains(Path.GetExtension(RelativeURL).ToUpper()); }
 		}
+		// ReSharper restore PossibleNullReferenceException
 
 		public MediaType MediaType
 		{

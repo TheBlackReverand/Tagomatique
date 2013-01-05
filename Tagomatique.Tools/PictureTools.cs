@@ -8,7 +8,7 @@ namespace Tagomatique.Tools
 		public static void GenerateThumbnailOfPicture(string source, Guid mediaViewModelId, Delegates.GenerateThumbnailDone setter)
 		{
 			BitmapSource ret;
-			BitmapMetadata meta = null;
+			//BitmapMetadata meta = null;
 
 			//tentative de creation du thumbnail via Bitmap frame : très rapide et très peu couteux en mémoire !
 			BitmapFrame frame = BitmapFrame.Create(new Uri(source), BitmapCreateOptions.DelayCreation, BitmapCacheOption.None);
@@ -31,7 +31,7 @@ namespace Tagomatique.Tools
 			else
 			{
 				//récupération des métas de l'image
-				meta = frame.Metadata as BitmapMetadata;
+				//meta = frame.Metadata as BitmapMetadata;
 				ret = frame.Thumbnail;
 			}
 
