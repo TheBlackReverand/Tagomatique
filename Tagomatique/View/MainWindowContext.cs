@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -20,9 +22,9 @@ namespace Tagomatique.View
 		{
 			CurrentWindow = currentWindow;
 
-			#region Liste GroupedTagDisponible
+			#region Liste GroupedTag
 
-			GroupedTagDisponibles = new ObservableCollection<GroupedTagViewModel>();
+			GroupedTag = new ObservableCollection<GroupedTagViewModel>();
 
 			// Chargement de la liste des GroupedTagViewModel depuis la liste des TagViewModel
 			var result = from tag in TagViewModel.GetAll()
@@ -32,34 +34,19 @@ namespace Tagomatique.View
 							 {
 								 Libelle = grp.Key,
 								 Count = grp.Count(),
+								 IsSelected = false,
 								 Command = SelectGroupedTagCommand
 							 };
 
-			result.ToList().ForEach(t => GroupedTagDisponibles.Add(t));
+			result.ToList().ForEach(t => GroupedTag.Add(t));
 
-			GroupedTagDisponiblesCollectionView = CollectionViewSource.GetDefaultView(GroupedTagDisponibles);
+			GroupedTagDisponibles = new ListCollectionView(GroupedTag);
+			GroupedTagDisponibles.Filter = o => !((GroupedTagViewModel) o).IsSelected;
 
-			if (GroupedTagDisponiblesCollectionView == null)
-				throw new NullReferenceException("'GroupedTagDisponiblesCollectionView' is null in Constructor");
-
-			GroupedTagDisponiblesCollectionView.CurrentChanged += OnGroupedTagDisponibleCollectionViewCurrentChanged;
-
-			#endregion Liste GroupedTagDisponible
-
-			#region Liste GroupedTagSelectionner
-
-			GroupedTagSelectionner = new ObservableCollection<GroupedTagViewModel>();
-
-			// Lors de l'Initialisation aucun GroupedTag n'est selectionner
-
-			GroupedTagSelectionnerCollectionView = CollectionViewSource.GetDefaultView(GroupedTagSelectionner);
-
-			if (GroupedTagSelectionnerCollectionView == null)
-				throw new NullReferenceException("'GroupedTagSelectionnerCollectionView' is null in Constructor");
-
-			GroupedTagSelectionnerCollectionView.CurrentChanged += OnGroupedTagSelectionnerCollectionViewCurrentChanged;
-
-			#endregion Liste GroupedTagSelectionner
+			GroupedTagSelectionner = new ListCollectionView(GroupedTag);
+			GroupedTagSelectionner.Filter = o => ((GroupedTagViewModel)o).IsSelected;
+		
+			#endregion Liste GroupedTag
 
 			#region Liste Media correspondant
 
@@ -76,7 +63,6 @@ namespace Tagomatique.View
 
 			#endregion Liste Media correspondant
 
-
 			if (GroupedTagDisponibles.Count > 0)
 				CalculerRapportInterTagDisponible();
 		}
@@ -85,35 +71,10 @@ namespace Tagomatique.View
 
 		#region Liste GroupedTag Disponible
 
-		public ObservableCollection<GroupedTagViewModel> GroupedTagDisponibles { get; private set; }
+		public ObservableCollection<GroupedTagViewModel> GroupedTag { get; private set; }
 
-		private readonly ICollectionView GroupedTagDisponiblesCollectionView;
-		public GroupedTagViewModel CurrentGroupedTagDisponible
-		{
-			get { return GroupedTagDisponiblesCollectionView.CurrentItem as GroupedTagViewModel; }
-		}
-
-		private void OnGroupedTagDisponibleCollectionViewCurrentChanged(object sender, EventArgs e)
-		{
-			OnPropertyChanged("CurrentGroupedTagDisponible");
-		}
-
-		#endregion Liste GroupedTag Disponible
-
-		#region Liste GroupedTag Selectionner
-
-		public ObservableCollection<GroupedTagViewModel> GroupedTagSelectionner { get; private set; }
-
-		private readonly ICollectionView GroupedTagSelectionnerCollectionView;
-		public GroupedTagViewModel CurrentGroupedTagSelectionner
-		{
-			get { return GroupedTagSelectionnerCollectionView.CurrentItem as GroupedTagViewModel; }
-		}
-
-		private void OnGroupedTagSelectionnerCollectionViewCurrentChanged(object sender, EventArgs e)
-		{
-			OnPropertyChanged("CurrentGroupedTagSelectionner");
-		}
+		public ListCollectionView GroupedTagDisponibles { get; private set; }
+		public ListCollectionView GroupedTagSelectionner { get; private set; }
 
 		#endregion Liste GroupedTag Selectionner
 
@@ -134,7 +95,6 @@ namespace Tagomatique.View
 
 		#endregion Liste Media correspondant
 
-
 		#endregion Listes
 
 		#region Commands
@@ -148,70 +108,27 @@ namespace Tagomatique.View
 			{
 				if (selectGroupedTagCommand == null)
 				{
-					selectGroupedTagCommand = new RelayCommand<GroupedTagViewModel>(SelectGroupedTag, CanSelectGroupedTag);
+					selectGroupedTagCommand = new RelayCommand<GroupedTagViewModel>(SelectGroupedTag);
 				}
 
 				return selectGroupedTagCommand;
 			}
 		}
 
-		private bool CanSelectGroupedTag(GroupedTagViewModel clickedGroupedTag)
-		{
-			return true;
-		}
 		private void SelectGroupedTag(GroupedTagViewModel clickedGroupedTag)
 		{
-			if (clickedGroupedTag != null && GroupedTagDisponibles.Contains(clickedGroupedTag)
-				&& !GroupedTagSelectionner.Contains(clickedGroupedTag))
+			if (clickedGroupedTag != null)
 			{
-				GroupedTagDisponibles.Remove(clickedGroupedTag);
-				GroupedTagSelectionner.Add(clickedGroupedTag);
+				clickedGroupedTag.IsSelected = !clickedGroupedTag.IsSelected;
 
-				// Le GroupedTag a ete selectionner, sa prochaine action sera 'DeSelectionner'
-				clickedGroupedTag.Command = UnSelectGroupedTagCommand;
+				GroupedTagSelectionner.Refresh();
+				GroupedTagDisponibles.Refresh();
 
 				ActualiserListeMediaCorrespondant();
 			}
 		}
 
 		#endregion Command Selectionner GroupedTag
-
-		#region Command DeSelectionner GroupedTag
-
-		private ICommand unSelectGroupedTagCommand;
-		public ICommand UnSelectGroupedTagCommand
-		{
-			get
-			{
-				if (unSelectGroupedTagCommand == null)
-				{
-					unSelectGroupedTagCommand = new RelayCommand<GroupedTagViewModel>(UnSelectGroupedTag, CanUnSelectGroupedTag);
-				}
-
-				return unSelectGroupedTagCommand;
-			}
-		}
-
-		private bool CanUnSelectGroupedTag(GroupedTagViewModel clickedGroupedTag)
-		{
-			return true;
-		}
-		private void UnSelectGroupedTag(GroupedTagViewModel clickedGroupedTag)
-		{
-			if (clickedGroupedTag != null && !GroupedTagDisponibles.Contains(clickedGroupedTag)
-				&& GroupedTagSelectionner.Contains(clickedGroupedTag))
-			{
-				GroupedTagDisponibles.Add(clickedGroupedTag);
-				GroupedTagSelectionner.Remove(clickedGroupedTag);
-
-				// Le GroupedTag a ete deselectionner, sa prochaine action sera 'Selectionner'
-				clickedGroupedTag.Command = SelectGroupedTagCommand;
-
-				ActualiserListeMediaCorrespondant();
-			}
-		}
-
-		#endregion Command DeSelectionner GroupedTag
 
 		#region Command Afficher SearchWindow
 
@@ -243,7 +160,7 @@ namespace Tagomatique.View
 
 		private void ActualiserListeMediaCorrespondant()
 		{
-			List<MediaViewModel> lstMediaCorrespondant = MediaViewModel.GetByTagLibelle(GroupedTagSelectionner.Select(groupedTag => groupedTag.Libelle));
+			List<MediaViewModel> lstMediaCorrespondant = MediaViewModel.GetByTagLibelle(GroupedTagSelectionner.OfType<GroupedTagViewModel>().Select(groupedTag => groupedTag.Libelle));
 
 			for (int i = MediaCorrespondant.Count; i > 0; i--)
 			{
@@ -263,12 +180,12 @@ namespace Tagomatique.View
 		private void CalculerRapportInterTagDisponible()
 		{
 			// On recherche les Tags les moins utilise, idem avec les plus utilise
-			int min = GroupedTagDisponibles.Min(t => t.Count);
-			int max = GroupedTagDisponibles.Max(t => t.Count);
+			int min = GroupedTag.Min(t => t.Count);
+			int max = GroupedTag.Max(t => t.Count);
 
-			int nombreTag = GroupedTagDisponibles.Sum(t => t.Count);
+			int nombreTag = GroupedTag.Sum(t => t.Count);
 
-			foreach (GroupedTagViewModel tag in GroupedTagDisponibles)
+			foreach (GroupedTagViewModel tag in GroupedTag)
 			{
 				// Taille normale (+0%)
 				if (tag.Count == min)
