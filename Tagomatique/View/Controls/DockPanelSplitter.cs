@@ -57,7 +57,7 @@ namespace Tagomatique.View.Controls
 
 			// override the Dock property to get notifications when Dock is changed
 			DockPanel.DockProperty.OverrideMetadata(typeof(DockPanelSplitter),
-				new FrameworkPropertyMetadata(Dock.Left, new PropertyChangedCallback(DockChanged)));
+				new FrameworkPropertyMetadata(Dock.Left, DockChanged));
 		}
 
 		/// <summary>
@@ -190,10 +190,20 @@ namespace Tagomatique.View.Controls
 
 			// todo - constrain the width of the element to the available client area
 			Panel dp = Parent as Panel;
-			Dock dock = DockPanel.GetDock(this);
-			MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
-			if (dock == Dock.Left && newWidth > dp.ActualWidth - t.Matrix.OffsetX - Thickness)
-				newWidth = dp.ActualWidth - t.Matrix.OffsetX - Thickness;
+
+			if (dp != null)
+			{
+				Dock dock = DockPanel.GetDock(this);
+				MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
+
+				if (t != null)
+				{
+					if (dock == Dock.Left && newWidth > dp.ActualWidth - t.Matrix.OffsetX - Thickness)
+					{
+						newWidth = dp.ActualWidth - t.Matrix.OffsetX - Thickness;
+					}
+				}
+			}
 
 			element.Width = newWidth;
 		}
@@ -207,10 +217,20 @@ namespace Tagomatique.View.Controls
 
 			// todo - constrain the height of the element to the available client area
 			Panel dp = Parent as Panel;
-			Dock dock = DockPanel.GetDock(this);
-			MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
-			if (dock == Dock.Top && newHeight > dp.ActualHeight - t.Matrix.OffsetY - Thickness)
-				newHeight = dp.ActualHeight - t.Matrix.OffsetY - Thickness;
+
+			if (dp != null)
+			{
+				Dock dock = DockPanel.GetDock(this);
+				MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
+
+				if (t != null)
+				{
+					if (dock == Dock.Top && newHeight > dp.ActualHeight - t.Matrix.OffsetY - Thickness)
+					{
+						newHeight = dp.ActualHeight - t.Matrix.OffsetY - Thickness;
+					}
+				}
+			}
 
 			element.Height = newHeight;
 		}
@@ -301,10 +321,7 @@ namespace Tagomatique.View.Controls
 				bool isBottomOrRight = (dock == Dock.Right || dock == Dock.Bottom);
 
 				// When docked to the bottom or right, the position has changed after adjusting the size
-				if (isBottomOrRight)
-					StartDragPoint = e.GetPosition(Parent as IInputElement);
-				else
-					StartDragPoint = new Point(StartDragPoint.X + delta.X, StartDragPoint.Y + delta.Y);
+				StartDragPoint = isBottomOrRight ? e.GetPosition(Parent as IInputElement) : new Point(StartDragPoint.X + delta.X, StartDragPoint.Y + delta.Y);
 			}
 			base.OnMouseMove(e);
 		}
