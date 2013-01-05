@@ -8,22 +8,39 @@ namespace Tagomatique.Resources
 {
     public static class Parametres
     {
-        public static DataModeType DataMode
-        {
-            get
-            {
-                string dataMode = ConfigurationManager.AppSettings["DataMode"];
+		public static DataModeType DataMode
+		{
+			get
+			{
+				string dataMode = ConfigurationManager.AppSettings["DataMode"];
 
-                if (String.IsNullOrWhiteSpace(dataMode))
-                {
-                    return DataModeType.INCONNU;
-                }
+				if (String.IsNullOrWhiteSpace(dataMode))
+				{
+					return DataModeType.INCONNU;
+				}
 
-                DataModeType mode;
+				DataModeType value;
 
-                return Enum.TryParse(dataMode, true, out mode) ? mode : DataModeType.INCONNU;
-            }
-        }
+				return Enum.TryParse(dataMode, true, out value) ? value : DataModeType.INCONNU;
+			}
+		}
+
+		public static TagOperator TagOperator
+		{
+			get
+			{
+				string tagOperator = ConfigurationManager.AppSettings["TagOperator"];
+
+				if (String.IsNullOrWhiteSpace(tagOperator))
+				{
+					return TagOperator.AND;
+				}
+
+				TagOperator value;
+
+				return Enum.TryParse(tagOperator, true, out value) ? value : TagOperator.AND;
+			}
+		}
 
         // En cas d'ajout mettre à jour les filtres de la OpenFileDialog dans SearchWindowContext.cs
         public static List<string> ValidExtensionPhoto = new List<string> { ".JPG", ".JPEG" };
