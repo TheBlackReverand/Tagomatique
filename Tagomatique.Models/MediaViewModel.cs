@@ -188,16 +188,20 @@ namespace Tagomatique.Models
 		{
 			return TagomatiqueCache.GetAll(GetAllFromDB).Where(m => m.FK_ID_Dossier == idDossier).ToList();
 		}
+
 		public static List<MediaViewModel> GetByTagLibelle(IEnumerable<string> tagsLibelle)
 		{
-			IEnumerable<Guid> lstIdMediaCorrepondant = TagViewModel.GetAll()
-				.Where(tag => tag.FK_ID_Media.HasValue && tagsLibelle.Contains(tag.Libelle))
-				// ReSharper disable PossibleInvalidOperationException (checked in Where clause)
-				.Select(tag => tag.FK_ID_Media.Value)
-				// ReSharper restore PossibleInvalidOperationException
-				.Distinct();
+			switch (Parametres.TagOperator)
+			{
+				case TagOperator.AND:
+					return GetAll().Where(m => tagsLibelle.All(t => m.Tags.Select(tag => tag.Libelle).Contains(t))).ToList();
 
-			return TagomatiqueCache.GetAll(GetAllFromDB).Where(m => lstIdMediaCorrepondant.Contains(m.ID_Media)).ToList();
+				case TagOperator.OR:
+					return GetAll().Where(m => m.Tags.Any(t => tagsLibelle.Contains(t.Libelle))).ToList();
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		#endregion
