@@ -43,11 +43,11 @@ namespace Tagomatique.Models
 
 		public static ChapitreViewModel GetByKey(Guid idChapitre)
 		{
-			return TagomatiqueCache.GetElement(s => s.ID_Chapitre == idChapitre, GetAllFromDB);
+			return TagomatiqueCache.GetElement(c => c.ID_Chapitre == idChapitre, GetAllFromDB);
 		}
 		public static List<ChapitreViewModel> GetByMediaKey(Guid idMedia)
 		{
-			return TagomatiqueCache.GetAll(GetAllFromDB).Where(s => s.FK_ID_Media == idMedia).ToList();
+            return TagomatiqueCache.GetElements(c => c.FK_ID_Media == idMedia, GetAllFromDB);
 		}
 
 		#endregion

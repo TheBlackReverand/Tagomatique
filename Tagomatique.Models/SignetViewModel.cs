@@ -45,7 +45,7 @@ namespace Tagomatique.Models
 		}
 		public static List<SignetViewModel> GetByMediaKey(Guid idMedia)
 		{
-			return TagomatiqueCache.GetAll(GetAllFromDB).Where(s => s.FK_ID_Media == idMedia).ToList();
+            return TagomatiqueCache.GetElements(s => s.FK_ID_Media == idMedia, GetAllFromDB);
 		}
 
 		#endregion
