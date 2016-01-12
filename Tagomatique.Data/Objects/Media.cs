@@ -1,9 +1,8 @@
 ﻿using System;
-using Tagomatique.Data.Interface;
 
-namespace Tagomatique.Data.Object
+namespace Tagomatique.Data.Objects
 {
-	public class Media : IMedia
+	public class Media
 	{
 		public Guid ID_Media { get; set; }
 
