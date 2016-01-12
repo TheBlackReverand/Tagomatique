@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tagomatique.Data.Interface;
+using Tagomatique.Data.Objects;
 using Tagomatique.Resources;
 using Tagomatique.Resources.Enums;
 
@@ -40,7 +40,7 @@ namespace Tagomatique.Data
 
 		#region Infos
 
-		public abstract IInfos GetInfos();
+		public abstract Infos GetInfos();
 		public abstract string GetVersion();
 
 		#endregion Infos
@@ -48,7 +48,7 @@ namespace Tagomatique.Data
 
 		#region Dossiers
 
-		public abstract List<IDossier> GetAllDossier();
+		public abstract List<Dossier> GetAllDossier();
 
 		public abstract Guid AjouterDossier(string nom, string chemin);
 		public abstract void ModifierDossier(Guid idDossier, string nom, string chemin);
@@ -58,7 +58,7 @@ namespace Tagomatique.Data
 
 		#region Medias
 
-		public abstract List<IMedia> GetAllMedia();
+		public abstract List<Media> GetAllMedia();
 
 		public abstract Guid AjouterMedia(string nom, string relativeURL, Guid idDossier);
 		public abstract void ModifierMedia(Guid idMedia, string nom, string relativeURL, Guid idDossier);
@@ -69,7 +69,7 @@ namespace Tagomatique.Data
 
 		#region Tags
 
-		public abstract List<ITag> GetAllTag();
+		public abstract List<Tag> GetAllTag();
 
 		public abstract Guid AjouterTagForMedia(Guid idMedia, string libelleTexte);
 		public abstract Guid AjouterTagForChapitre(Guid idChapitre, string libelleTexte);
@@ -79,7 +79,7 @@ namespace Tagomatique.Data
 
 		#region Signets
 
-		public abstract List<ISignet> GetAllSignet();
+		public abstract List<Signet> GetAllSignet();
 
 		public abstract Guid AjouterSignet(Guid idMedia, string libelleTexte, string duree);
 		public abstract void SupprimerSignet(Guid idSignet);
@@ -88,7 +88,7 @@ namespace Tagomatique.Data
 	
 		#region Chapitres
 
-		public abstract List<IChapitre> GetAllChapitre();
+		public abstract List<Chapitre> GetAllChapitre();
 
 		public abstract Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin);
 		public abstract void SupprimerChapitre(Guid idChapitre);

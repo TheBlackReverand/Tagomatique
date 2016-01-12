@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Tagomatique.Data.Context;
-using Tagomatique.Data.Interface;
 using SQLCompactContext = Tagomatique.Data.Context.SQLCompactContext;
 
 namespace Tagomatique.Data
@@ -21,11 +21,11 @@ namespace Tagomatique.Data
 
 		#region Infos
 
-		public override IInfos GetInfos()
+		public override Tagomatique.Data.Objects.Infos GetInfos()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Infos.First();
+				return context.Infos.First().GetGeneriqueDataObject();
 			}
 		}
 
@@ -42,11 +42,11 @@ namespace Tagomatique.Data
 
 		#region Dossiers
 
-		public override List<IDossier> GetAllDossier()
+        public override List<Tagomatique.Data.Objects.Dossier> GetAllDossier()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Dossier.ToList().Cast<IDossier>().ToList();
+				return context.Dossier.ToList().Select(d => d.GetGeneriqueDataObject()).ToList();
 			}
 		}
 
@@ -102,11 +102,11 @@ namespace Tagomatique.Data
 
 		#region Medias
 
-		public override List<IMedia> GetAllMedia()
+        public override List<Tagomatique.Data.Objects.Media> GetAllMedia()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Media.ToList().Cast<IMedia>().ToList();
+                return context.Media.ToList().Select(m => m.GetGeneriqueDataObject()).ToList();
 			}
 		}
 
@@ -165,11 +165,11 @@ namespace Tagomatique.Data
 
 		#region Tags
 
-		public override List<ITag> GetAllTag()
+        public override List<Tagomatique.Data.Objects.Tag> GetAllTag()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Tag.ToList().Cast<ITag>().ToList();
+                return context.Tag.ToList().Select(t => t.GetGeneriqueDataObject()).ToList();
 			}
 		}
 
@@ -242,11 +242,11 @@ namespace Tagomatique.Data
 
 		#region Signets
 
-		public override List<ISignet> GetAllSignet()
+        public override List<Tagomatique.Data.Objects.Signet> GetAllSignet()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Signet.ToList().Cast<ISignet>().ToList();
+                return context.Signet.ToList().Select(s => s.GetGeneriqueDataObject()).ToList();
 			}
 		}
 
@@ -293,11 +293,11 @@ namespace Tagomatique.Data
 
 		#region Chapitres
 
-		public override List<IChapitre> GetAllChapitre()
+        public override List<Tagomatique.Data.Objects.Chapitre> GetAllChapitre()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
-				return context.Chapitre.ToList().Cast<IChapitre>().ToList();
+                return context.Chapitre.ToList().Select(c => c.GetGeneriqueDataObject()).ToList();
 			}
 		}
 

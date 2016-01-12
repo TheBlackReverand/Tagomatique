@@ -1,9 +1,8 @@
 ﻿using System;
-using Tagomatique.Data.Interface;
 
-namespace Tagomatique.Data.Object
+namespace Tagomatique.Data.Objects
 {
-	public class Chapitre : IChapitre
+	public class Chapitre
 	{
 		public Guid ID_Chapitre { get; set; }
 

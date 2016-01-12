@@ -1,9 +1,8 @@
 ﻿using System;
-using Tagomatique.Data.Interface;
 
-namespace Tagomatique.Data.Object
+namespace Tagomatique.Data.Objects
 {
-	public class Tag : ITag
+	public class Tag
 	{
 		public Guid ID_Tag { get; set; }
 
