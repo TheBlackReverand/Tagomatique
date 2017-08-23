@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tagomatique.Data.Objects;
 using Tagomatique.Resources;
+using Tagomatique.Resources.DTO;
 using Tagomatique.Resources.Enums;
 
 namespace Tagomatique.Data

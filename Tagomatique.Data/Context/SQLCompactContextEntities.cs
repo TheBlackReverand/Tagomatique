@@ -2,9 +2,9 @@
 {
     internal partial class Chapitre
     {
-        internal Tagomatique.Data.Objects.Chapitre GetGeneriqueDataObject()
+        internal Tagomatique.Resources.DTO.Chapitre GetGeneriqueDataObject()
         {
-            return new Objects.Chapitre()
+            return new Tagomatique.Resources.DTO.Chapitre()
             {
                 ID_Chapitre = this.ID_Chapitre,
 
@@ -19,9 +19,9 @@
 
     internal partial class Dossier
     {
-        internal Tagomatique.Data.Objects.Dossier GetGeneriqueDataObject()
+        internal Tagomatique.Resources.DTO.Dossier GetGeneriqueDataObject()
         {
-            return new Objects.Dossier()
+            return new Tagomatique.Resources.DTO.Dossier()
             {
                 ID_Dossier = this.ID_Dossier,
 
@@ -33,9 +33,9 @@
 
     internal partial class Infos
     {
-        internal Tagomatique.Data.Objects.Infos GetGeneriqueDataObject()
+        internal Tagomatique.Resources.DTO.Infos GetGeneriqueDataObject()
         {
-            return new Objects.Infos()
+            return new Tagomatique.Resources.DTO.Infos()
             {
                 Version = this.Version,
             };
@@ -44,9 +44,9 @@
 
     internal partial class Media
     {
-        internal Tagomatique.Data.Objects.Media GetGeneriqueDataObject()
+        internal Tagomatique.Resources.DTO.Media GetGeneriqueDataObject()
         {
-            return new Objects.Media()
+            return new Tagomatique.Resources.DTO.Media()
             {
                 ID_Media = this.ID_Media,
 
@@ -60,9 +60,9 @@
 
     internal partial class Signet
     {
-        internal Tagomatique.Data.Objects.Signet GetGeneriqueDataObject()
+        internal Tagomatique.Resources.DTO.Signet GetGeneriqueDataObject()
         {
-            return new Objects.Signet()
+            return new Tagomatique.Resources.DTO.Signet()
             {
                 ID_Signet = this.ID_Signet,
 
@@ -76,9 +76,9 @@
 
     internal partial class Tag
     {
-        internal Tagomatique.Data.Objects.Tag GetGeneriqueDataObject()
+        internal Tagomatique.Resources.DTO.Tag GetGeneriqueDataObject()
         {
-            return new Objects.Tag()
+            return new Tagomatique.Resources.DTO.Tag()
             {
                 ID_Tag = this.ID_Tag,
 

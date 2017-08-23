@@ -41,6 +41,12 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Chapitre.cs" />
+    <Compile Include="DTO\Dossier.cs" />
+    <Compile Include="DTO\Infos.cs" />
+    <Compile Include="DTO\Media.cs" />
+    <Compile Include="DTO\Signet.cs" />
+    <Compile Include="DTO\Tag.cs" />
     <Compile Include="Enums\DataModeType.cs" />
     <Compile Include="Enums\DataModelState.cs" />
     <Compile Include="Enums\MediaType.cs" />
