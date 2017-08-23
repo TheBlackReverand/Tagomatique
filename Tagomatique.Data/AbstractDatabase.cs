@@ -72,6 +72,16 @@ namespace Tagomatique.Data
 		#endregion Medias
 
 
+		#region Chapitres
+
+		public abstract List<Chapitre> GetAllChapitre();
+
+		public abstract Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin);
+		public abstract void SupprimerChapitre(Guid idChapitre);
+
+		#endregion Chapitres
+
+
 		#region Tags
 
 		public abstract List<Tag> GetAllTag();
@@ -90,14 +100,5 @@ namespace Tagomatique.Data
 		public abstract void SupprimerSignet(Guid idSignet);
 
 		#endregion Signets
-
-		#region Chapitres
-
-		public abstract List<Chapitre> GetAllChapitre();
-
-		public abstract Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin);
-		public abstract void SupprimerChapitre(Guid idChapitre);
-
-		#endregion Chapitres
 	}
 }

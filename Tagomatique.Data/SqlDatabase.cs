@@ -163,6 +163,60 @@ namespace Tagomatique.Data
 		#endregion Medias
 
 
+		#region Chapitres
+
+		public override List<Tagomatique.Data.Objects.Chapitre> GetAllChapitre()
+		{
+			using (SQLCompactContext context = GetContext())
+			{
+				return context.Chapitre.ToList().Select(c => c.GetGeneriqueDataObject()).ToList();
+			}
+		}
+
+		public override Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin)
+		{
+			Guid idChapitre = Guid.NewGuid();
+
+			using (SQLCompactContext context = GetContext())
+			{
+				// TODO : Deporter ce test dans la couche Models
+				if (!context.Chapitre.Any(c => c.Debut == debut && c.Fin == fin && c.Description == description))
+				{
+					Chapitre newChapitre = new Chapitre
+					{
+						ID_Chapitre = idChapitre,
+						Debut = debut,
+						Fin = fin,
+						Description = description,
+						FK_ID_Media = idMedia
+					};
+
+					context.Chapitre.AddObject(newChapitre);
+					context.SaveChanges();
+
+					return idChapitre;
+				}
+			}
+
+			return Guid.Empty;
+		}
+		public override void SupprimerChapitre(Guid idChapitre)
+		{
+			using (SQLCompactContext context = GetContext())
+			{
+				var chapitreForDelete = context.Chapitre.SingleOrDefault(s => s.ID_Chapitre == idChapitre);
+
+				if (chapitreForDelete != null)
+				{
+					context.Chapitre.DeleteObject(chapitreForDelete);
+					context.SaveChanges();
+				}
+			}
+		}
+
+		#endregion Chapitres
+
+
 		#region Tags
 
         public override List<Tagomatique.Data.Objects.Tag> GetAllTag()
@@ -290,58 +344,5 @@ namespace Tagomatique.Data
 		}
 
 		#endregion Signets
-
-		#region Chapitres
-
-        public override List<Tagomatique.Data.Objects.Chapitre> GetAllChapitre()
-		{
-			using (SQLCompactContext context = GetContext())
-			{
-                return context.Chapitre.ToList().Select(c => c.GetGeneriqueDataObject()).ToList();
-			}
-		}
-
-		public override Guid AjouterChapitre(Guid idMedia, string description, string debut, string fin)
-		{
-			Guid idChapitre = Guid.NewGuid();
-
-			using (SQLCompactContext context = GetContext())
-			{
-				// TODO : Deporter ce test dans la couche Models
-				if (!context.Chapitre.Any(c => c.Debut == debut && c.Fin == fin && c.Description == description))
-				{
-					Chapitre newChapitre = new Chapitre
-					{
-						ID_Chapitre = idChapitre,
-						Debut = debut,
-						Fin = fin,
-						Description = description,
-						FK_ID_Media = idMedia
-					};
-
-					context.Chapitre.AddObject(newChapitre);
-					context.SaveChanges();
-
-					return idChapitre;
-				}
-			}
-
-			return Guid.Empty;
-		}
-		public override void SupprimerChapitre(Guid idChapitre)
-		{
-			using (SQLCompactContext context = GetContext())
-			{
-				var chapitreForDelete = context.Chapitre.SingleOrDefault(s => s.ID_Chapitre == idChapitre);
-
-				if (chapitreForDelete != null)
-				{
-					context.Chapitre.DeleteObject(chapitreForDelete);
-					context.SaveChanges();
-				}
-			}
-		}
-
-		#endregion Chapitres
 	}
 }
