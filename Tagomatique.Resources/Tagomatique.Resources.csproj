@@ -85,12 +85,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Error.png" />
-    <Content Include="Exit.png" />
-    <Content Include="OK.png" />
-    <Content Include="Open.bmp" />
-    <Content Include="Pause.png" />
-    <Content Include="Run.png" />
+    <Content Include="Pictures\Error.png" />
+    <Content Include="Pictures\Exit.png" />
+    <Content Include="Pictures\OK.png" />
+    <Content Include="Pictures\Open.bmp" />
+    <Content Include="Pictures\Pause.png" />
+    <Content Include="Pictures\Run.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
