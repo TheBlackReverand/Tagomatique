@@ -10,28 +10,33 @@ namespace Tagomatique.Data
 	{
 		#region Singleton
 
+		private static object _lock = new object();
+
 		private static AbstractDatabase dataBase;
 		public static AbstractDatabase DataBase
 		{
 			get
 			{
-				if (dataBase == null)
+				lock (_lock)
 				{
-					switch (Parametres.DataMode)
+					if (dataBase == null)
 					{
-						case DataModeType.SQL:
-							dataBase = new SqlDatabase();
-							break;
+						switch (Parametres.DataMode)
+						{
+							case DataModeType.SQL:
+								dataBase = new SqlDatabase();
+								break;
 
-						case DataModeType.XML:
-							throw new NotSupportedException(Erreurs.DataModeNonSupporter);
+							case DataModeType.XML:
+								throw new NotSupportedException(Erreurs.DataModeNonSupporter);
 
-						default:
-							throw new NotSupportedException(Erreurs.DataModeNonSupporter);
+							default:
+								throw new NotSupportedException(Erreurs.DataModeNonSupporter);
+						}
 					}
-				}
 
-				return dataBase;
+					return dataBase;
+				}
 			}
 		}
 
@@ -85,7 +90,7 @@ namespace Tagomatique.Data
 		public abstract void SupprimerSignet(Guid idSignet);
 
 		#endregion Signets
-	
+
 		#region Chapitres
 
 		public abstract List<Chapitre> GetAllChapitre();
