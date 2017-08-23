@@ -158,10 +158,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tagomatique.Data\Tagomatique.Data.csproj">
-      <Project>{7DA0D919-81B0-4096-9588-C017F9A9A136}</Project>
-      <Name>Tagomatique.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tagomatique.Models\Tagomatique.Models.csproj">
       <Project>{1CE2A3A3-37CF-4054-A5FA-E17D1544C2F2}</Project>
       <Name>Tagomatique.Models</Name>
