@@ -12,8 +12,6 @@ namespace Tagomatique
 			INITIALISER_DOSSIER_MEDIA();
 			INITIALISER_TAG();
 			INITIALISER_SIGNET();
-
-			Thread.Sleep(1000);
 		}
 
 		private static void INITIALISER_DOSSIER_MEDIA()
