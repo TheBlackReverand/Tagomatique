@@ -4,6 +4,7 @@
                     xmlns:models="clr-namespace:Tagomatique.Models;assembly=Tagomatique.Models">
     <Style x:Key="GroupedTagListBoxStyle" TargetType="ListBox">
         <Style.Resources>
+            <!-- Style définit pour tous les ListBoxItem d'une ListBox stylisé avec GroupedTagListBox -->
             <Style TargetType="ListBoxItem">
                 <Style.Resources>
                     <!-- SelectedItem with focus -->
@@ -13,13 +14,14 @@
                     <!-- SelectedItem text foreground -->
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                 </Style.Resources>
-                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+                <!-- Aucun style particulier lorsque l'item posséde le Focus -->                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             </Style>
         </Style.Resources>
-        
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
-        <Setter Property="ItemsPanel">
+
+        <!-- Ascenseur vertical si nécessaire -->        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <!-- Pas d'ascenseur Horizontal -->        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <!-- Mode de rendu des ListBoxItem : Positionne des éléments enfants dans un ordre séquentiel de gauche à droite, en arrêtant le contenu à la ligne suivante au bord de la zone conteneur. -->        <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
                     <WrapPanel />
