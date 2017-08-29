@@ -15,10 +15,8 @@ namespace Tagomatique.View
 	{
 		public MainWindow CurrentWindow { get; set; }
 
-		public MainWindowContext(MainWindow currentWindow)
+		public MainWindowContext()
 		{
-			CurrentWindow = currentWindow;
-
 			#region Liste GroupedTag
 
 			GroupedTag = new ObservableCollection<GroupedTagViewModel>();
@@ -37,12 +35,17 @@ namespace Tagomatique.View
 
 			result.ToList().ForEach(t => GroupedTag.Add(t));
 
+			if (WPFTools.IsDesignMode)
+			{
+				GroupedTag.First(gtvm => gtvm.Libelle == "Tag 2").IsSelected = true;
+			}
+
 			GroupedTagDisponibles = new ListCollectionView(GroupedTag);
-			GroupedTagDisponibles.Filter = o => !((GroupedTagViewModel) o).IsSelected;
+			GroupedTagDisponibles.Filter = o => !((GroupedTagViewModel)o).IsSelected;
 
 			GroupedTagSelectionner = new ListCollectionView(GroupedTag);
 			GroupedTagSelectionner.Filter = o => ((GroupedTagViewModel)o).IsSelected;
-		
+
 			#endregion Liste GroupedTag
 
 			#region Liste Media correspondant
@@ -62,6 +65,12 @@ namespace Tagomatique.View
 
 			if (GroupedTagDisponibles.Count > 0)
 				CalculerRapportInterTagDisponible();
+		}
+
+		public MainWindowContext(MainWindow currentWindow)
+			: this()
+		{
+			CurrentWindow = currentWindow;
 		}
 
 		#region Listes

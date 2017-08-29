@@ -43,13 +43,27 @@ namespace Tagomatique.Models
 		}
 		private static List<DossierViewModel> GetAllFromDB()
 		{
+#if DEBUG
+			if (WPFTools.IsDesignMode)
+			{
+				return new List<DossierViewModel>()
+				{
+					new DossierViewModel(){ Nom ="Dossier 1", Chemin = @"C:\Tagomatique\Dossier1" },
+					new DossierViewModel(){ Nom ="Dossier 2", Chemin = @"C:\Tagomatique\Dossier2" },
+					new DossierViewModel(){ Nom ="Dossier 3", Chemin = @"C:\Tagomatique\Dossier3" },
+					new DossierViewModel(){ Nom ="Dossier 4", Chemin = @"C:\Tagomatique\Dossier4" },
+					new DossierViewModel(){ Nom ="Dossier 5", Chemin = @"C:\Tagomatique\Dossier5" },
+				};
+			}
+#endif
+
 			return AbstractDatabase.DataBase.GetAllDossier().Select(item => new DossierViewModel
-				                                                                {
-					                                                                ID_Dossier = item.ID_Dossier,
-					                                                                Nom = item.Nom,
-					                                                                Chemin = item.Chemin,
-					                                                                State = DataModelState.Unchanged
-				                                                                }).ToList();
+																				{
+																					ID_Dossier = item.ID_Dossier,
+																					Nom = item.Nom,
+																					Chemin = item.Chemin,
+																					State = DataModelState.Unchanged
+																				}).ToList();
 		}
 
 		public static DossierViewModel GetByKey(Guid idDossier)

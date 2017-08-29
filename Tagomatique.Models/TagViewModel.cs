@@ -30,6 +30,22 @@ namespace Tagomatique.Models
 
 		private static List<TagViewModel> GetAllFromDB()
 		{
+#if DEBUG
+			if (WPFTools.IsDesignMode)
+			{
+				return new List<TagViewModel>()
+				{
+					new TagViewModel(){ Libelle ="Tag 1"},
+					new TagViewModel(){ Libelle ="Tag 1"},
+					new TagViewModel(){ Libelle ="Tag 1"},
+					new TagViewModel(){ Libelle ="Tag 2"},
+					new TagViewModel(){ Libelle ="Tag 2"},
+					new TagViewModel(){ Libelle ="Tag 3"},
+					new TagViewModel(){ Libelle ="Tag 3"},
+				};
+			}
+#endif
+
 			return AbstractDatabase.DataBase.GetAllTag().Select(item => new TagViewModel
 														   {
 															   ID_Tag = item.ID_Tag,
@@ -47,11 +63,11 @@ namespace Tagomatique.Models
 
 		public static List<TagViewModel> GetByMediaKey(Guid idMedia)
 		{
-            return TagomatiqueCache.GetElements(t => t.FK_ID_Media == idMedia, GetAllFromDB);
+			return TagomatiqueCache.GetElements(t => t.FK_ID_Media == idMedia, GetAllFromDB);
 		}
 		public static List<TagViewModel> GetByChapitreKey(Guid idChapitre)
 		{
-            return TagomatiqueCache.GetElements(t => t.FK_ID_Chapitre == idChapitre, GetAllFromDB);
+			return TagomatiqueCache.GetElements(t => t.FK_ID_Chapitre == idChapitre, GetAllFromDB);
 		}
 
 		#endregion

@@ -167,7 +167,21 @@ namespace Tagomatique.Models
 
         private static List<MediaViewModel> GetAllFromDB()
         {
-            return AbstractDatabase.DataBase.GetAllMedia().Select(item => new MediaViewModel
+#if DEBUG
+			if (WPFTools.IsDesignMode)
+			{
+				return new List<MediaViewModel>()
+				{
+					new MediaViewModel(){ Nom ="Media 1" },
+					new MediaViewModel(){ Nom ="Media 2" },
+					new MediaViewModel(){ Nom ="Media 3" },
+					new MediaViewModel(){ Nom ="Media 4" },
+					new MediaViewModel(){ Nom ="Media 5" },
+				};
+			}
+#endif
+
+			return AbstractDatabase.DataBase.GetAllMedia().Select(item => new MediaViewModel
                                                              {
                                                                  ID_Media = item.ID_Media,
                                                                  Nom = item.Nom,

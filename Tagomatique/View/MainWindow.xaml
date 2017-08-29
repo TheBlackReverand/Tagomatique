@@ -12,7 +12,7 @@
         Title="MainWindow"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
-        Height="600" Width="1000" d:DataContext="{d:DesignInstance view:MainWindowContext}">
+        Height="600" Width="1000" d:DataContext="{d:DesignInstance Type=view:MainWindowContext, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
