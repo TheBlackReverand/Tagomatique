@@ -20,7 +20,7 @@ namespace Tagomatique.Data
 
 		#region Infos
 
-		public override Tagomatique.Resources.DTO.Infos GetInfos()
+		public override Tagomatique.Supplies.DTO.Infos GetInfos()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
@@ -41,7 +41,7 @@ namespace Tagomatique.Data
 
 		#region Dossiers
 
-        public override List<Tagomatique.Resources.DTO.Dossier> GetAllDossier()
+        public override List<Tagomatique.Supplies.DTO.Dossier> GetAllDossier()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
@@ -101,7 +101,7 @@ namespace Tagomatique.Data
 
 		#region Medias
 
-        public override List<Tagomatique.Resources.DTO.Media> GetAllMedia()
+        public override List<Tagomatique.Supplies.DTO.Media> GetAllMedia()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
@@ -164,7 +164,7 @@ namespace Tagomatique.Data
 
 		#region Chapitres
 
-		public override List<Tagomatique.Resources.DTO.Chapitre> GetAllChapitre()
+		public override List<Tagomatique.Supplies.DTO.Chapitre> GetAllChapitre()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
@@ -218,7 +218,7 @@ namespace Tagomatique.Data
 
 		#region Tags
 
-        public override List<Tagomatique.Resources.DTO.Tag> GetAllTag()
+        public override List<Tagomatique.Supplies.DTO.Tag> GetAllTag()
 		{
 			using (SQLCompactContext context = GetContext())
 			{
@@ -295,7 +295,7 @@ namespace Tagomatique.Data
 
 		#region Signets
 
-        public override List<Tagomatique.Resources.DTO.Signet> GetAllSignet()
+        public override List<Tagomatique.Supplies.DTO.Signet> GetAllSignet()
 		{
 			using (SQLCompactContext context = GetContext())
 			{

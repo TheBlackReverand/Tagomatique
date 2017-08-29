@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="WindowsBase" />
@@ -56,9 +57,9 @@
       <Project>{7DA0D919-81B0-4096-9588-C017F9A9A136}</Project>
       <Name>Tagomatique.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Tagomatique.Resources\Tagomatique.Resources.csproj">
+    <ProjectReference Include="..\Tagomatique.Supplies\Tagomatique.Supplies.csproj">
       <Project>{3111DCA3-AD40-43AE-B277-55E63A3CA36E}</Project>
-      <Name>Tagomatique.Resources</Name>
+      <Name>Tagomatique.Supplies</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tagomatique.Tools\Tagomatique.Tools.csproj">
       <Project>{15231301-23F0-412B-81FB-71497B7DC668}</Project>

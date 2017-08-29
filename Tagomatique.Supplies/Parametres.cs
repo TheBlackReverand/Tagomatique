@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Tagomatique.Resources.Enums;
+using Tagomatique.Supplies.Enums;
 
-namespace Tagomatique.Resources
+namespace Tagomatique.Supplies
 {
     public static class Parametres
     {

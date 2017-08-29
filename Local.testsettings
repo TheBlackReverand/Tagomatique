@@ -28,7 +28,7 @@
                 <CodeCoverageItem binaryFile="Tagomatique.Data\bin\Debug\Tagomatique.Data.dll" pdbFile="Tagomatique.Data\bin\Debug\Tagomatique.Data.pdb" instrumentInPlace="true" />
                 <CodeCoverageItem binaryFile="Tagomatique\bin\Debug\Tagomatique.exe" pdbFile="Tagomatique\obj\x86\Debug\Tagomatique.pdb" instrumentInPlace="true" />
                 <CodeCoverageItem binaryFile="Tagomatique.Models\bin\Debug\Tagomatique.Models.dll" pdbFile="Tagomatique.Models\bin\Debug\Tagomatique.Models.pdb" instrumentInPlace="true" />
-                <CodeCoverageItem binaryFile="Tagomatique.Resources\bin\Debug\Tagomatique.Resources.dll" pdbFile="Tagomatique.Resources\bin\Debug\Tagomatique.Resources.pdb" instrumentInPlace="true" />
+                <CodeCoverageItem binaryFile="Tagomatique.Supplies\bin\Debug\Tagomatique.Supplies.dll" pdbFile="Tagomatique.Supplies\bin\Debug\Tagomatique.Supplies.pdb" instrumentInPlace="true" />
                 <CodeCoverageItem binaryFile="Tagomatique.Tools\bin\Debug\Tagomatique.Tools.dll" pdbFile="Tagomatique.Tools\bin\Debug\Tagomatique.Tools.pdb" instrumentInPlace="true" />
               </Regular>
             </CodeCoverage>

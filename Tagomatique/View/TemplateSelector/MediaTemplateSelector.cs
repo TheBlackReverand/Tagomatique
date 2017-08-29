@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Tagomatique.Models;
-using Tagomatique.Resources.Enums;
+using Tagomatique.Supplies.Enums;
 
 namespace Tagomatique.View.TemplateSelector
 {

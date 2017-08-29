@@ -13,13 +13,16 @@ namespace Tagomatique.View
 {
 	public class MainWindowContext : ViewModelBase
 	{
+		public string Test { get; set; }
+
 		public MainWindow CurrentWindow { get; set; }
 
-		public MainWindowContext() { }
-
-		public MainWindowContext(MainWindow currentWindow)
+		public MainWindowContext()
 		{
-			CurrentWindow = currentWindow;
+			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+			{
+				Test = "111";
+			}
 
 			#region Liste GroupedTag
 
@@ -38,6 +41,11 @@ namespace Tagomatique.View
 							 };
 
 			result.ToList().ForEach(t => GroupedTag.Add(t));
+	
+			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+			{
+				GroupedTag.First(gtvm => gtvm.Libelle == "Libelle 1").IsSelected = true;
+			}
 
 			GroupedTagDisponibles = new ListCollectionView(GroupedTag);
 			GroupedTagDisponibles.Filter = o => !((GroupedTagViewModel)o).IsSelected;
@@ -64,6 +72,12 @@ namespace Tagomatique.View
 
 			if (GroupedTagDisponibles.Count > 0)
 				CalculerRapportInterTagDisponible();
+		}
+
+		public MainWindowContext(MainWindow currentWindow)
+			: this()
+		{
+			CurrentWindow = currentWindow;
 		}
 
 		#region Listes

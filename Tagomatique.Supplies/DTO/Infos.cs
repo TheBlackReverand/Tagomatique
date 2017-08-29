@@ -1,4 +1,4 @@
-﻿namespace Tagomatique.Resources.DTO
+﻿namespace Tagomatique.Supplies.DTO
 {
 	public class Infos
 	{

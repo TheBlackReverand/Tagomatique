@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tagomatique.Resources;
-using Tagomatique.Resources.DTO;
-using Tagomatique.Resources.Enums;
+using Tagomatique.Supplies;
+using Tagomatique.Supplies.DTO;
+using Tagomatique.Supplies.Enums;
 
 namespace Tagomatique.Data
 {

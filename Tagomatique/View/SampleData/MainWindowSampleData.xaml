@@ -1,3 +1,16 @@
 ﻿<MainWindowContext xmlns="clr-namespace:Tagomatique.View">
-    
+    <MainWindowContext.Test>mon test</MainWindowContext.Test>
+
+    <MainWindowContext.GroupedTag>
+        <GroupedTagViewModel xmlns="clr-namespace:Tagomatique.Models;assembly=Tagomatique.Models">
+            <GroupedTagViewModel.Libelle>Libelle 1</GroupedTagViewModel.Libelle>
+            <GroupedTagViewModel.Count>15</GroupedTagViewModel.Count>
+            <GroupedTagViewModel.IsSelected>true</GroupedTagViewModel.IsSelected>
+        </GroupedTagViewModel>
+        <GroupedTagViewModel xmlns="clr-namespace:Tagomatique.Models;assembly=Tagomatique.Models">
+            <GroupedTagViewModel.Libelle>Libelle 2</GroupedTagViewModel.Libelle>
+            <GroupedTagViewModel.Count>15</GroupedTagViewModel.Count>
+            <GroupedTagViewModel.IsSelected>false</GroupedTagViewModel.IsSelected>
+        </GroupedTagViewModel>
+    </MainWindowContext.GroupedTag>
 </MainWindowContext> 

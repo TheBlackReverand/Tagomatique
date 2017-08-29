@@ -26,7 +26,7 @@ namespace Tagomatique
                 path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
             }
 
-            using (Stream stream = executingAssembly.GetManifestResourceStream(path))
+			using (Stream stream = executingAssembly.GetManifestResourceStream(path))
             {
                 if (stream == null)
                     return null;

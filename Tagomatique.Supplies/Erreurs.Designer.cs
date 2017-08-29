@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Tagomatique.Resources {
+namespace Tagomatique.Supplies {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Tagomatique.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Tagomatique.Resources.Erreurs", typeof(Erreurs).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Tagomatique.Supplies.Erreurs", typeof(Erreurs).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tagomatique.Data;
 using Tagomatique.Models.Abstract;
-using Tagomatique.Resources.Enums;
+using Tagomatique.Supplies.Enums;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models
@@ -25,6 +25,18 @@ namespace Tagomatique.Models
 
 		public static List<TagViewModel> GetAll()
 		{
+			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+			{
+				return new List<TagViewModel>()
+				{
+					new TagViewModel(){ Libelle ="Libelle 1"},
+					new TagViewModel(){ Libelle ="Libelle 1"},
+					new TagViewModel(){ Libelle ="Libelle 2"},
+					new TagViewModel(){ Libelle ="Libelle 2"},
+					new TagViewModel(){ Libelle ="Libelle 2"},
+				};
+			}
+
 			return TagomatiqueCache.GetAll(GetAllFromDB);
 		}
 
@@ -47,11 +59,11 @@ namespace Tagomatique.Models
 
 		public static List<TagViewModel> GetByMediaKey(Guid idMedia)
 		{
-            return TagomatiqueCache.GetElements(t => t.FK_ID_Media == idMedia, GetAllFromDB);
+			return TagomatiqueCache.GetElements(t => t.FK_ID_Media == idMedia, GetAllFromDB);
 		}
 		public static List<TagViewModel> GetByChapitreKey(Guid idChapitre)
 		{
-            return TagomatiqueCache.GetElements(t => t.FK_ID_Chapitre == idChapitre, GetAllFromDB);
+			return TagomatiqueCache.GetElements(t => t.FK_ID_Chapitre == idChapitre, GetAllFromDB);
 		}
 
 		#endregion
