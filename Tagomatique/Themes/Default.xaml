@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type ListBoxItem}">
+        <Style.Resources>
+            <!-- SelectedItem with focus -->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Red" />
+            <!-- SelectedItem without focus -->
+            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Blue" />
+            <!-- SelectedItem text foreground -->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Yellow" />
+        </Style.Resources>
+    </Style>
+</ResourceDictionary>

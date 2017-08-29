@@ -15,6 +15,8 @@ namespace Tagomatique.View
 	{
 		public MainWindow CurrentWindow { get; set; }
 
+		public MainWindowContext() { }
+
 		public MainWindowContext(MainWindow currentWindow)
 		{
 			CurrentWindow = currentWindow;
@@ -38,11 +40,11 @@ namespace Tagomatique.View
 			result.ToList().ForEach(t => GroupedTag.Add(t));
 
 			GroupedTagDisponibles = new ListCollectionView(GroupedTag);
-			GroupedTagDisponibles.Filter = o => !((GroupedTagViewModel) o).IsSelected;
+			GroupedTagDisponibles.Filter = o => !((GroupedTagViewModel)o).IsSelected;
 
 			GroupedTagSelectionner = new ListCollectionView(GroupedTag);
 			GroupedTagSelectionner.Filter = o => ((GroupedTagViewModel)o).IsSelected;
-		
+
 			#endregion Liste GroupedTag
 
 			#region Liste Media correspondant
@@ -68,7 +70,7 @@ namespace Tagomatique.View
 
 		#region Liste GroupedTag Disponible
 
-		public ObservableCollection<GroupedTagViewModel> GroupedTag { get; private set; }
+		public ObservableCollection<GroupedTagViewModel> GroupedTag { get; set; }
 
 		public ListCollectionView GroupedTagDisponibles { get; private set; }
 		public ListCollectionView GroupedTagSelectionner { get; private set; }
