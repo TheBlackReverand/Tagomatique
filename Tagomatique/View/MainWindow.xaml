@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\ListStyle.xaml" />
+                <ResourceDictionary Source="..\Themes\Default.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -63,7 +64,7 @@
                 <ListBox Name="lstTagDisponible"
                  Grid.Row="1"
                  Style="{StaticResource GroupedTagListBoxStyle}"
-                 ItemsSource="{Binding GroupedTagDisponibles, Mode=OneWay}" />
+                 ItemsSource="{Binding GroupedTagDisponibles, Mode=OneWay}" Margin="10,0,-10,0" />
 
                 <TextBlock Grid.Row="2" Text="{x:Static Ressources:Messages.TagsSelectionner}" />
                 <ListBox Name="lstTagSelectionner"

@@ -132,12 +132,12 @@ namespace Tagomatique
 				tag.save();
 
 				tag = new TagViewModel();
-				tag.Libelle = "Dexter";
+				tag.Libelle = "Dexter1";
 				tag.FK_ID_Media = idDexter1;
 				tag.save();
 
 				tag = new TagViewModel();
-				tag.Libelle = "Dexter";
+				tag.Libelle = "Dexter2";
 				tag.FK_ID_Media = idDexter2;
 				tag.save();
 
