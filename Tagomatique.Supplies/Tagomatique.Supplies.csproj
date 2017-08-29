@@ -8,8 +8,8 @@
     <ProjectGuid>{3111DCA3-AD40-43AE-B277-55E63A3CA36E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tagomatique.Resources</RootNamespace>
-    <AssemblyName>Tagomatique.Resources</AssemblyName>
+    <RootNamespace>Tagomatique.Supplies</RootNamespace>
+    <AssemblyName>Tagomatique.Supplies</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

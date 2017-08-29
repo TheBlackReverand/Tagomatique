@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         
         xmlns:conv="clr-namespace:Tagomatique.View.Converters"
-        xmlns:Ressources="clr-namespace:Tagomatique.Resources;assembly=Tagomatique.Resources"
+        xmlns:supplies="clr-namespace:Tagomatique.Supplies;assembly=Tagomatique.Supplies"
         xmlns:Controls="clr-namespace:Tagomatique.View.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -59,13 +59,13 @@
                     <RowDefinition Height="Auto" MinHeight="20" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="{x:Static Ressources:Messages.TagsDisponibles}" />
+                <TextBlock Grid.Row="0" Text="{x:Static supplies:Messages.TagsDisponibles}" />
                 <ListBox Name="lstTagDisponible"
                  Grid.Row="1"
                  Style="{StaticResource GroupedTagListBoxStyle}"
                  ItemsSource="{Binding GroupedTagDisponibles, Mode=OneWay}" />
 
-                <TextBlock Grid.Row="2" Text="{x:Static Ressources:Messages.TagsSelectionner}" />
+                <TextBlock Grid.Row="2" Text="{x:Static supplies:Messages.TagsSelectionner}" />
                 <ListBox Name="lstTagSelectionner"
                  Grid.Row="3"
                  Style="{StaticResource GroupedTagListBoxStyle}"
@@ -93,6 +93,6 @@
         </DockPanel>
 
         <!-- Barre d'état/information -->
-        <TextBlock Grid.Row="2" Text="{x:Static Ressources:Erreurs.DataModeNonSupporter}" />
+        <TextBlock Grid.Row="2" Text="{x:Static supplies:Erreurs.DataModeNonSupporter}" />
     </Grid>
 </Window>

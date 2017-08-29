@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         
         xmlns:conv="clr-namespace:Tagomatique.View.Converters"
-        xmlns:Ressources="clr-namespace:Tagomatique.Resources;assembly=Tagomatique.Resources"
+        xmlns:supplies="clr-namespace:Tagomatique.Supplies;assembly=Tagomatique.Supplies"
         
         Title="SearchWindow"
         Height="350"
@@ -18,10 +18,10 @@
         </Grid.RowDefinitions>
 
         <UniformGrid Grid.Row="0" Rows="1">
-            <Button Margin="0,0,4,0" Content="{x:Static Ressources:Messages.AjouterMedia}" Command="{Binding AjouterFichierCommand}" />
-                <Button Margin="4,0,4,0" Content="{x:Static Ressources:Messages.AjouterMediaRelatif}" Command="{Binding AjouterFichierRelatifCommand}" />
-            <Button Margin="4,0,4,0" Content="{x:Static Ressources:Messages.AjouterDossier}" Command="{Binding AjouterDossierCommand}" />
-            <Button Margin="4,0,0,0" Content="{x:Static Ressources:Messages.AjouterDossierRelatif}" Command="{Binding AjouterDossierRelatifCommand}" />
+            <Button Margin="0,0,4,0" Content="{x:Static supplies:Messages.AjouterMedia}" Command="{Binding AjouterFichierCommand}" />
+            <Button Margin="4,0,4,0" Content="{x:Static supplies:Messages.AjouterMediaRelatif}" Command="{Binding AjouterFichierRelatifCommand}" />
+            <Button Margin="4,0,4,0" Content="{x:Static supplies:Messages.AjouterDossier}" Command="{Binding AjouterDossierCommand}" />
+            <Button Margin="4,0,0,0" Content="{x:Static supplies:Messages.AjouterDossierRelatif}" Command="{Binding AjouterDossierRelatifCommand}" />
         </UniformGrid>
 
         <DataGrid Grid.Row="1"  Margin="0,8,0,8"
@@ -92,11 +92,11 @@
         </UniformGrid>
 
         <UniformGrid Grid.Row="3" Rows="1" Columns="4">
-            <Button Content="{x:Static Ressources:Messages.RescannerDossierDejaAjouter}" Margin="0,0,4,0" />
+            <Button Content="{x:Static supplies:Messages.RescannerDossierDejaAjouter}" Margin="0,0,4,0" />
             <Grid Margin="4,0,4,0" />
 
-            <Button Content="{x:Static Ressources:Messages.Valider}" Margin="4,0,4,0" />
-            <Button Content="{x:Static Ressources:Messages.Annuler}" Margin="4,0,0,0" />
+            <Button Content="{x:Static supplies:Messages.Valider}" Margin="4,0,4,0" />
+            <Button Content="{x:Static supplies:Messages.Annuler}" Margin="4,0,0,0" />
         </UniformGrid>
     </Grid>
 </Window>

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Tagomatique.Data;
 using Tagomatique.Models.Abstract;
-using Tagomatique.Resources.Enums;
+using Tagomatique.Supplies.Enums;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models

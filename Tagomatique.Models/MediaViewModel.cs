@@ -6,8 +6,8 @@ using System.Threading;
 using System.Windows.Media.Imaging;
 using Tagomatique.Data;
 using Tagomatique.Models.Abstract;
-using Tagomatique.Resources;
-using Tagomatique.Resources.Enums;
+using Tagomatique.Supplies;
+using Tagomatique.Supplies.Enums;
 using Tagomatique.Tools;
 
 namespace Tagomatique.Models

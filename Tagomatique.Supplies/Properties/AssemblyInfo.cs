@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Tagomatique.Resources")]
+[assembly: AssemblyTitle("Tagomatique.Supplies")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Black Reverand")]
-[assembly: AssemblyProduct("Tagomatique.Resources")]
+[assembly: AssemblyProduct("Tagomatique.Supplies")]
 [assembly: AssemblyCopyright("Copyright © The Black Reverand 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -1,4 +1,4 @@
-﻿namespace Tagomatique.Resources.Enums
+﻿namespace Tagomatique.Supplies.Enums
 {
 	public enum MediaType
 	{

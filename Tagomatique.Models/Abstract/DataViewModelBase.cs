@@ -1,4 +1,4 @@
-﻿using Tagomatique.Resources.Enums;
+﻿using Tagomatique.Supplies.Enums;
 
 namespace Tagomatique.Models.Abstract
 {

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using Tagomatique.Tools.Extensions;
-using Tagomatique.Resources;
+using Tagomatique.Supplies;
 
 namespace Tagomatique.View.Converters
 {

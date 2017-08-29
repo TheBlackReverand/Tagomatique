@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagomatique.Tools", "Tagomatique.Tools\Tagomatique.Tools.csproj", "{15231301-23F0-412B-81FB-71497B7DC668}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagomatique.Resources", "Tagomatique.Resources\Tagomatique.Resources.csproj", "{3111DCA3-AD40-43AE-B277-55E63A3CA36E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagomatique.Supplies", "Tagomatique.Supplies\Tagomatique.Supplies.csproj", "{3111DCA3-AD40-43AE-B277-55E63A3CA36E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tagomatique.Data", "Tagomatique.Data\Tagomatique.Data.csproj", "{7DA0D919-81B0-4096-9588-C017F9A9A136}"
 EndProject

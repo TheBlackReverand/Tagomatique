@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tagomatique.Resources.DTO
+namespace Tagomatique.Supplies.DTO
 {
 	public class Chapitre
 	{
